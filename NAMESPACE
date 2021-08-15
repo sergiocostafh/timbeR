@@ -2,4 +2,5 @@
 
 export(poli5_di)
 export(poli5_hi)
+export(poli5_logs)
 export(poli5_vol)

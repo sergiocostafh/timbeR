@@ -1,6 +1,6 @@
-#' Estimate the total or partial volume of the tree, based on a 5th degree polynomial function that describes the taper of the tree.
+#' Simulate log extraction using a 5th degree polynomial that describes the taper of the tree.
 #'
-#' Estimates the total or partial volume of the tree from the diameter at breast height, total height, initial section height, final section height and coefficients of the 5th degree polynomial function that describes the tree's taper.
+#' Simulate the extraction of logs from a tree from its measurements, taper function (5th degree polynomial), trunk quality characteristics and harvest parameters such as stump height and assortments.
 #'
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.
