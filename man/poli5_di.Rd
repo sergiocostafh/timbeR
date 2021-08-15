@@ -2,7 +2,7 @@
 % Please edit documentation in R/poli5_di.R
 \name{poli5_di}
 \alias{poli5_di}
-\title{Estimate the diameter at a given height from a 5th degree polynomial}
+\title{Estimate the diameter at a given height based on a 5th degree polynomial function.}
 \usage{
 poli5_di(dbh, h, hi, coef)
 }
@@ -13,8 +13,8 @@ poli5_di(dbh, h, hi, coef)
 
 \item{hi}{height at which the diameter will be calculated, in meters.}
 
-\item{coef}{numerical vector containing six coefficients of the fitted 5th degree polynomial that describes the tree taper.}
+\item{coef}{numerical vector containing six coefficients of the 5th degree polynomial function that describes the tree's taper.}
 }
 \description{
-Estimates the diameter at a given height of a tree from the diameter at breast height, total height and the coefficients of the 5th degree polynomial that describes the tree taper
+Estimates the diameter at a given height of a tree from the diameter at breast height, total height and the coefficients of the 5th degree polynomial function that describes the tree's taper.
 }
