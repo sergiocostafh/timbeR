@@ -1,15 +1,21 @@
 Package: timbeR
-Title: What the Package Does (One Line, Title Case)
+Title: Estimate timber volume and number of logs per assortment.
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person(given = "Sérgio",
+           family = "Costa",
+           role = c("aut", "cre", "cph"),
+           email = "sergio.vscf@gmail.com",
+           comment = c(ORCID = "0000-0001-5432-317X"))
+Description: Functions for estimating volumes, number of logs, diameters along the stem and heights at which certain diameters occur, based on taper functions and other parameters.
+Depends: R(>= 3.3)
+Imports: 
+    dplyr,
+    ggplot2,
+    cowplot,
+    tidyr,
+    tibble
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

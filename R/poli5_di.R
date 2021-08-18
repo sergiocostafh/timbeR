@@ -7,6 +7,8 @@
 #' @param hi height at which the diameter will be calculated, in meters.
 #' @param coef numerical vector containing six coefficients of the 5th degree polynomial function that describes the tree's taper.
 #'
+#' @return a numeric value indicating the diameter at the given height.
+#'
 #' @export
 poli5_di <- function(dbh, h, hi, coef){
   b0 <- coef[1]; b1 <- coef[2]; b2 <- coef[3]; b3 <- coef[4]; b4 <- coef[5]; b5 <- coef[6]

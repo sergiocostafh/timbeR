@@ -7,6 +7,8 @@
 #' @param di diameter whose height of occurrence will be estimated, in centimeters.
 #' @param coef numerical vector containing six coefficients of the 5th degree polynomial function that describes the tree's taper.
 #'
+#' @return as numeric value indicating the height at which the given diameter occurs.
+#'
 #' @export
 poli5_hi <- function(dbh, h, di, coef){
   b0 <- coef[1]; b1 <- coef[2]; b2 <- coef[3]; b3 <- coef[4]; b4 <- coef[5]; b5 <- coef[6]

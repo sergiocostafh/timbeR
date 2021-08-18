@@ -17,6 +17,9 @@ poli5_vol(dbh, h, coef, hi, h0)
 
 \item{h0}{initial height of the tree section whose volume will be calculated, in meters. Default is 0 (ground height).}
 }
+\value{
+a numeric value indicating the total or partial volume of the tree.
+}
 \description{
 Estimates the total or partial volume of the tree from the diameter at breast height, total height, initial section height, final section height and coefficients of the 5th degree polynomial function that describes the tree's taper.
 }

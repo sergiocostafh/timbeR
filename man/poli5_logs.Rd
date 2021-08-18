@@ -38,6 +38,9 @@ poli5_logs(
 
 \item{total_volume}{if TRUE, it adds an additional column to the results data.frame with the estimate of the total volume of the tree, from stump_height to h if broken argument is FALSE, or to defect_height if broken is TRUE. Default is FALSE.}
 }
+\value{
+a list of two data.frames, the first (volumes) with the calculated volumes per assortment, and the second (logs) with the number of logs per assortment.
+}
 \description{
 Simulate the extraction of logs from a tree from its measurements, taper function (5th degree polynomial), trunk quality characteristics and harvest parameters such as stump height and assortments.
 }

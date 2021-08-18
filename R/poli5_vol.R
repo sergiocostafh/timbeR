@@ -8,6 +8,8 @@
 #' @param hi final height of the tree section whose volume will be calculated, in meters. Default is the total tree height (h).
 #' @param h0 initial height of the tree section whose volume will be calculated, in meters. Default is 0 (ground height).
 #'
+#' @return a numeric value indicating the total or partial volume of the tree.
+#'
 #' @export
 poli5_vol <- function(dbh,h,coef,hi,h0){
 

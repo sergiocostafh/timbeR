@@ -15,6 +15,9 @@ poli5_di(dbh, h, hi, coef)
 
 \item{coef}{numerical vector containing six coefficients of the 5th degree polynomial function that describes the tree's taper.}
 }
+\value{
+a numeric value indicating the diameter at the given height.
+}
 \description{
 Estimates the diameter at a given height of a tree from the diameter at breast height, total height and the coefficients of the 5th degree polynomial function that describes the tree's taper.
 }
