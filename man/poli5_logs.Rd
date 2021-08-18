@@ -8,12 +8,13 @@ poli5_logs(
   dbh,
   h,
   coef,
-  stump_height,
   assortments,
+  stump_height,
   downgrade,
   eliminate,
   broken,
-  defect_height
+  defect_height,
+  total_volume
 )
 }
 \arguments{
@@ -23,9 +24,19 @@ poli5_logs(
 
 \item{coef}{numerical vector containing six coefficients of the 5th degree polynomial function that describes the tree's taper.}
 
-\item{hi}{final height of the tree section whose volume will be calculated, in meters. Default is the total tree height (h).}
+\item{assortments}{a data.frame with four columns and n rows, where n is the number of different wood assortments to be obtained from the tree stem. The first column must contain the names of the assortments, the second, numerical, contains the minimum diameters at the small end of the logs, in centimeters. The third column, numerical, contains the lengths of the logs, in meters. The fourth column, numerical, contains the values in centimeters referring to the loss of wood due to cutting logs. The algorithm prioritizes the extraction of assortments along the stem in the order presented in the data.frame, starting from the first line, to the last.}
 
-\item{h0}{initial height of the tree section whose volume will be calculated, in meters. Default is 0 (ground height).}
+\item{stump_height}{tree cutting height, in meters. Default is 0.}
+
+\item{downgrade}{if TRUE, the algorithm,from the defect_height onwards, simulates log extraction only for the last assortment in the assortments data.frame. Default is FALSE.}
+
+\item{eliminate}{if TRUE, the algorithm does not get logs for any assortment present in the assortments table. All will be zero. Default is FALSE.}
+
+\item{broken}{if TRUE, the algorithm will simulate the extraction of logs only up to the defect_height. Default is FALSE.}
+
+\item{defect_height}{the height, in meters, from which the logs will be downgraded (if downgrade is TRUE) or log extraction simulation will be stopped (if broken is TRUE). Default is h * 0.5.}
+
+\item{total_volume}{if TRUE, it adds an additional column to the results data.frame with the estimate of the total volume of the tree, from stump_height to h if broken argument is FALSE, or to defect_height if broken is TRUE. Default is FALSE.}
 }
 \description{
 Simulate the extraction of logs from a tree from its measurements, taper function (5th degree polynomial), trunk quality characteristics and harvest parameters such as stump height and assortments.
