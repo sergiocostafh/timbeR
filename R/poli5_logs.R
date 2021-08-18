@@ -11,7 +11,7 @@
 #' @param eliminate if TRUE, the algorithm does not get logs for any assortment present in the assortments table. All will be zero. Default is FALSE.
 #' @param broken if TRUE, the algorithm will simulate the extraction of logs only up to the defect_height. Default is FALSE.
 #' @param defect_height the height, in meters, from which the logs will be downgraded (if downgrade is TRUE) or log extraction simulation will be stopped (if broken is TRUE). Default is h * 0.5.
-#' @param total_volume if TRUE, it adds an additional column to the results data.frame with the estimate of the total volume of the tree, from stump_height to h if broken argument is FALSE, or to defect_height if broken is TRUE. Default is FALSE.
+#' @param total_volume if TRUE, it adds an additional column to the results data.frame with the estimate of the total volume of the tree, from the ground height to h if broken argument is FALSE, or to defect_height if broken is TRUE. Default is FALSE.
 #'
 #' @return a list of two data.frames, the first (volumes) with the calculated volumes per assortment, and the second (logs) with the number of logs per assortment.
 #'
@@ -28,79 +28,70 @@ poli5_logs <-
            defect_height,
            total_volume) {
 
-    if(missing(stump_height)){stump_height <- 0}
-    if(missing(downgrade)){downgrade <- FALSE}
-    if(missing(eliminate)){eliminate <- FALSE}
-    if(missing(broken)){broken <- FALSE}
-    if(missing(defect_height)){defect_height <- h*.5}
-    if(missing(total_volume)){total_volume <- F}
-
-    # Define a altura do toco e calcula o volume do toco
+    if (missing(stump_height)) {
+      stump_height <- 0
+    }
+    if (missing(downgrade)) {
+      downgrade <- FALSE
+    }
+    if (missing(eliminate)) {
+      eliminate <- FALSE
+    }
+    if (missing(broken)) {
+      broken <- FALSE
+    }
+    if (missing(defect_height)) {
+      defect_height <- h * 0.5
+    }
+    if (missing(total_volume)) {
+      total_volume <- F
+    }
     h0 <- stump_height
     vdiscount <- timbeR::poli5_vol(dbh, h, h0, coef)
 
-    cnames <- colnames(assortments)
-    colnames(assortments) <- c('Assortment','SED','Length','Loss')
-
-    # Prepara a tabela que receberá os registros de assortments
-    tab_sort <-
-      (
-        assortments %>% dplyr::select(Assortment, SED) %>% tidyr::pivot_wider(names_from = Assortment, values_from =
-                                                                  SED)
-      )[0, ]
-
-    tab_sort_n <-
-      (
-        assortments %>% dplyr::select(Assortment, SED) %>% tidyr::pivot_wider(names_from = Assortment, values_from =
-                                                                  SED)
-      )[0, ]
-    # Zera volumes de registros sem dbh, altura, ou que devem ser eliminados do cálculo de volume
+    colnames(assortments) <- c("Assortment", "SED", "Length",
+                               "Loss")
+    tab_sort <- (assortments %>% dplyr::select(Assortment, SED) %>%
+                   tidyr::pivot_wider(names_from = Assortment, values_from = SED))[0,
+                   ]
+    tab_sort_n <- (assortments %>% dplyr::select(Assortment,
+                                                 SED) %>% tidyr::pivot_wider(names_from = Assortment,
+                                                                             values_from = SED))[0, ]
     if (any(c(is.na(dbh), is.na(h), eliminate))) {
-      tab_sort[1, ] <-
-        0
+      tab_sort[1, ] <- 0
       tab_sort <- tab_sort %>% tibble::add_column(`Volume Total` = 0)
     }
-
-    # Início do cálculo de volumes
-    else{
-
+    else {
       for (i in seq_along(assortments$Assortment)) {
-
-        # Define diâmetros, comprimentos e perda das toras
         dsort <- assortments[[i, 2]]
         csort <- assortments[[i, 3]]
-        psort <- assortments[[i,4]]/100
-
-        # Cálcula o altura em que o DPF do sortimento ocorre na árvore
+        psort <- assortments[[i, 4]]/100
         harv_dsort <- poli5_hi(dbh, h, dsort, coef)
-
-        # Define a altura máxima em que não ocorre downgrade devido a algum defeito
-        if(((downgrade & i<nrow(assortments)) | broken) & harv_dsort>defect_height){
+        if (((downgrade & i < nrow(assortments)) | broken) &
+            harv_dsort > defect_height) {
           harv_dsort <- defect_height
         }
-
         nlogs <- 0
         vsort <- 0
-        while(h0 <= harv_dsort-csort){
-          nlogs <- nlogs+1
+        while (h0 <= harv_dsort - csort) {
+          nlogs <- nlogs + 1
           h0 <- h0 + csort + psort
-          vsort <- vsort + timbeR::poli5_vol(dbh, h, h0-psort, coef) - vdiscount
-          vloss <- timbeR::poli5_vol(dbh, h, h0, coef) - (vdiscount + vsort)
-          vdiscount <- vdiscount + vsort + vloss
+          vsort <- vsort + timbeR::poli5_vol(dbh, h, coef, h0 - psort, h0 - (psort + csort))
         }
-
-
         tab_sort[1, i] <- vsort
         tab_sort_n[1, i] <- nlogs
       }
 
-      colnames(tab_sort) <- cnames
-      colnames(tab_sort_n) <- cnames
-
-      if(total_volume){
-        tab_sort <- tab_sort %>% tibble::add_column(`Total` = ifelse(broken, timbeR::poli5_vol(dbh, h, defect_height, coef),timbeR::poli5_vol(dbh, h, h, coef)))
+      if (total_volume) {
+        tab_sort <- tab_sort %>% tibble::add_column(Total = ifelse(broken,
+                                                                   timbeR::poli5_vol(dbh, h, coef, defect_height),
+                                                                   timbeR::poli5_vol(dbh, h, coef, h)))
       }
     }
     return(list(volumes = tab_sort,
                 logs = tab_sort_n))
   }
+
+
+
+
