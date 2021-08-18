@@ -14,7 +14,7 @@ poli5_hi <- function(dbh, h, di, coef){
     ((b0+b1*(hi/h)+b2*(hi/h)^2+b3*(hi/h)^3+b4*(hi/h)^4+b5*(hi/h)^5)-(di/dbh))^2
   }
 
-  optimise(fun_opt_hi,lower=0,upper=h,tol=0.0001)$minimum
+  stats::optimise(fun_opt_hi,lower=0,upper=h,tol=0.0001)$minimum
 }
 
 
