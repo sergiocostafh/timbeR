@@ -11,9 +11,9 @@ poli5_logs(
   assortments,
   stump_height,
   downgrade,
-  eliminate,
   broken,
   defect_height,
+  eliminate,
   total_volume
 )
 }
@@ -30,11 +30,11 @@ poli5_logs(
 
 \item{downgrade}{if TRUE, the algorithm,from the defect_height onwards, simulates log extraction only for the last assortment in the assortments data.frame. Default is FALSE.}
 
-\item{eliminate}{if TRUE, the algorithm does not get logs for any assortment present in the assortments table. All will be zero. Default is FALSE.}
-
 \item{broken}{if TRUE, the algorithm will simulate the extraction of logs only up to the defect_height. Default is FALSE.}
 
-\item{defect_height}{the height, in meters, from which the logs will be downgraded (if downgrade is TRUE) or log extraction simulation will be stopped (if broken is TRUE). Default is h * 0.5.}
+\item{defect_height}{the height, in meters, from which the logs will be downgraded (if downgrade is TRUE) or log extraction simulation will be stopped (if broken is TRUE). Default is 0 for downgrade = TRUE (the whole tree is downgraded) and h * 0.5 for broken = TRUE (the tree is broken from half its original/estimated total height).}
+
+\item{eliminate}{if TRUE, the algorithm does not get logs for any assortment present in the assortments table. All will be zero. Default is FALSE.}
 
 \item{total_volume}{if TRUE, it adds an additional column to the results data.frame with the estimate of the total volume of the tree, from the ground height to h if broken argument is FALSE, or to defect_height if broken is TRUE. Default is FALSE.}
 }
