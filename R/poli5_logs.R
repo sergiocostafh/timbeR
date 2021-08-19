@@ -93,6 +93,7 @@ poli5_logs <-
     if (any(c(is.na(dbh), is.na(h), eliminate))) {
       tab_sort[1, ] <- 0
       tab_sort <- tab_sort %>% tibble::add_column(`Volume Total` = 0)
+      tab_sort_n[1, ] <- 0
     }
     else {
       for (i in seq_along(assortments$Assortment)) {
