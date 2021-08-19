@@ -72,6 +72,9 @@ poli5_logs <-
       }
 
     }
+
+    if(missing(break_height)){break_height <- h}
+
     if (missing(total_volume)) {
       total_volume <- F
     }
