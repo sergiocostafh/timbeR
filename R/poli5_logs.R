@@ -78,6 +78,7 @@ poli5_logs <-
     if (missing(total_volume)) {
       total_volume <- F
     }
+
     h0 <- stump_height
 
     colnames(assortments) <- c("Assortment", "SED", "Length",
