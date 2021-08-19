@@ -44,7 +44,10 @@ poli5_logs <-
       message('The `broken` and `downgrade` arguments are FALSE. The value entered for `defect_height` will be discarded')
     }
 
-    if(broken & !missing(defect_height)){break_height <- defect_height}
+    if(broken & !missing(defect_height)){
+      break_height <- defect_height
+      if(downgrade){defect_height <- 0}
+    }
 
     if(broken & downgrade){
       message('The `broken` and `downgrade` arguments are TRUE. The whole tree will be downgraded from `stump_height` to `defect_height`.')
