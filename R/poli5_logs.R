@@ -73,7 +73,7 @@ poli5_logs <-
 
     }
 
-    if(!exists(break_height)){break_height <- h}
+    if(!exists('break_height')){break_height <- h}
 
     if (missing(total_volume)) {
       total_volume <- F
