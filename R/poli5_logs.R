@@ -89,6 +89,7 @@ poli5_logs <-
     tab_sort <- (assortments %>% dplyr::select(Assortment, SED) %>%
                    tidyr::pivot_wider(names_from = Assortment, values_from = SED))[0,
                    ]
+
     tab_sort_n <- (assortments %>% dplyr::select(Assortment,
                                                  SED) %>% tidyr::pivot_wider(names_from = Assortment,
                                                                              values_from = SED))[0, ]
