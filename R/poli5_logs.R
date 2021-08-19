@@ -89,6 +89,7 @@ poli5_logs <-
     tab_sort_n <- (assortments %>% dplyr::select(Assortment,
                                                  SED) %>% tidyr::pivot_wider(names_from = Assortment,
                                                                              values_from = SED))[0, ]
+
     if (any(c(is.na(dbh), is.na(h), eliminate))) {
       tab_sort[1, ] <- 0
       tab_sort <- tab_sort %>% tibble::add_column(`Volume Total` = 0)
