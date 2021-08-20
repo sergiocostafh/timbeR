@@ -33,24 +33,6 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
     broken <- FALSE
   }
 
-  stump_label <- dplyr::case_when(lang=='eng'~'Stump',
-                                  lang=='pt-BR'~'Toco')
-  loss_label <- dplyr::case_when(lang=='eng'~'Loss',
-                                 lang=='pt-BR'~'Perda')
-  tip_label <- dplyr::case_when(lang=='eng'~'Tip',
-                                lang=='pt-BR'~'Ponteira')
-  ptitle <- dplyr::case_when(lang=='eng'~'Timber assortments',
-                             lang=='pt-BR'~'Processamento de multiplos produtos da madeira')
-
-  psubtitle <- dplyr::case_when(lang=='eng'~
-                                  paste0(ifelse(broken,'Broken tree measurements: ','Tree measurements: '), dbh, ' cm in dbh and ',h, ' m tall.'),
-                                lang=='pt-BR'~
-                                  paste0('Arvore ',ifelse(broken,paste0('quebrada aos ',break_height,' m'),''),' com DAP de ', dbh, ' cm',ifelse(broken,'.',paste0(' e altura total de ', h, ' m.'))))
-
-  pylabel <- dplyr::case_when(lang=='eng'~ 'Height (m)',
-                              lang=='pt-BR'~ 'Altura (m)')
-
-
   suppressMessages(
     nlogs <-
       timbeR::poli5_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
@@ -90,6 +72,24 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
   }
 
   if(!exists('break_height')){break_height <- h}
+
+  stump_label <- dplyr::case_when(lang=='eng'~'Stump',
+                                  lang=='pt-BR'~'Toco')
+  loss_label <- dplyr::case_when(lang=='eng'~'Loss',
+                                 lang=='pt-BR'~'Perda')
+  tip_label <- dplyr::case_when(lang=='eng'~'Tip',
+                                lang=='pt-BR'~'Ponteira')
+  ptitle <- dplyr::case_when(lang=='eng'~'Timber assortments',
+                             lang=='pt-BR'~'Processamento de multiplos produtos da madeira')
+
+  psubtitle <- dplyr::case_when(lang=='eng'~
+                                  paste0(ifelse(broken,'Broken tree measurements: ','Tree measurements: '), dbh, ' cm in dbh and ',h, ' m tall.'),
+                                lang=='pt-BR'~
+                                  paste0('Arvore ',ifelse(broken,paste0('quebrada aos ',break_height,' m'),''),' com DAP de ', dbh, ' cm',ifelse(broken,'.',paste0(' e altura total de ', h, ' m.'))))
+
+  pylabel <- dplyr::case_when(lang=='eng'~ 'Height (m)',
+                              lang=='pt-BR'~ 'Altura (m)')
+
   nlogs_assortments <- assortments %>%
     dplyr::mutate(Nlogs = as.vector(t(nlogs$logs)))
 
