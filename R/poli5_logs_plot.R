@@ -90,7 +90,7 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
   psubtitle <- dplyr::case_when(lang=='eng'~
                                   paste0(ifelse(broken,'Broken tree measurements: ','Tree measurements: '), dbh, ' cm in dbh and ',h, ' m tall.'),
                                 lang=='pt-BR'~
-                                  paste0('Arvore ',ifelse(broken,paste0('quebrada aos ',break_height,' m'),''),' com DAP de ', dbh, ' cm',ifelse(broken,'.',paste0(' e altura total de ', h, ' m.'))))
+                                  paste0('Arvore ',ifelse(broken,paste0('quebrada aos ',break_height,' m'),''),'com DAP de ', dbh, ' cm',ifelse(broken,'.',paste0(' e altura total de ', h, ' m.'))))
 
   pylabel <- dplyr::case_when(lang=='eng'~ 'Height (m)',
                               lang=='pt-BR'~ 'Altura (m)')
