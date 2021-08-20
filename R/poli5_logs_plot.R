@@ -71,7 +71,7 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
 
   }
 
-  if(!exists('break_height') !missing(defect_height) & broken){
+  if(!exists('break_height') & !missing(defect_height) & broken){
     break_height <- defect_height
     defect_height <- 0
   }
