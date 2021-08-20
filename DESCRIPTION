@@ -1,5 +1,5 @@
 Package: timbeR
-Title: Estimate timber volume and number of logs per assortment.
+Title: Timber volume and number of logs per assortment based on taper equations
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Sérgio",
