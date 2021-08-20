@@ -15,3 +15,4 @@ poli5_di <- function(dbh, h, hi, coef){
   hih <- hi/h
   (b0+b1*hih+b2*hih^2+b3*hih^3+b4*hih^4+b5*hih^5)*dbh
 }
+

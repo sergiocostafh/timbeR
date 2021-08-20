@@ -15,6 +15,8 @@
 #'
 #' @return a list of two data.frames, the first (volumes) with the calculated volumes per assortment, and the second (logs) with the number of logs per assortment.
 #'
+#' @details when the `broken` and `downgrade` arguments are set to TRUE, the `defect_height` value is considered as the break height of the tree, and the entire tree is downgraded.
+#'
 #' @export
 poli5_logs <-
   function(dbh,

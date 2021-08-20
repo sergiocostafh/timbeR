@@ -44,3 +44,6 @@ a list of two data.frames, the first (volumes) with the calculated volumes per a
 \description{
 Simulate the extraction of logs from a tree from its measurements, taper function (5th degree polynomial), trunk quality characteristics and harvest parameters such as stump height and assortments.
 }
+\details{
+when the \code{broken} and \code{downgrade} arguments are set to TRUE, the \code{defect_height} value is considered as the break height of the tree, and the entire tree is downgraded.
+}
