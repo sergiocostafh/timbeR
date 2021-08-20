@@ -97,7 +97,7 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
                          di = poli5_di(dbh, h, seq(0, ifelse(broken,break_height,h), 0.01), coef))
 
 
-  tree_sections <- tibble::tibble(hi = stump_height, description = paste0(stump_label,' (',stump_height*100,' cm)'))
+  tree_sections <- tibble::tibble(hi = stump_height, description = paste0(stump_label,' (',stump_height*100,'cm)'))
 
   for (i in 1:nrow(nlogs_assortments)) {
     sort <- nlogs_assortments[i, ]
