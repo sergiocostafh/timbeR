@@ -12,12 +12,12 @@
 #' @param defect_height the height, in meters, from which the logs will be downgraded (if downgrade is TRUE) or log extraction simulation will be stopped (if broken is TRUE). Default is h * 0.5.
 #' @param lang language in which plot labels will be displayed. Current options are 'en' and 'pt-BR'. Default is 'en'.
 #'
-#' @details check the `poli5_logs` function help for more details.
+#' @details check the `poly5_logs` function help for more details.
 #'
 #' @return a ggplot object.
 #'
 #' @export
-poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, lang) {
+poly5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, lang) {
 
   if (missing(lang)) {
     lang <- 'eng'
@@ -35,7 +35,7 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
 
   suppressMessages(
     nlogs <-
-      timbeR::poli5_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
+      timbeR::poly5_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
   )
 
   if(!missing(defect_height) & !downgrade & !broken){
@@ -99,7 +99,7 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
     dplyr::mutate(Nlogs = as.vector(t(nlogs$logs)))
 
   tree <- tibble::tibble(hi = seq(0, ifelse(broken,break_height,h), 0.01),
-                         di = poli5_di(dbh, h, seq(0, ifelse(broken,break_height,h), 0.01), coef))
+                         di = timbeR::poly5_di(dbh, h, seq(0, ifelse(broken,break_height,h), 0.01), coef))
 
 
   tree_sections <- tibble::tibble(hi = stump_height, description = paste0(stump_label,' (',stump_height*100,'cm)'))
@@ -132,11 +132,11 @@ poli5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
     dplyr::mutate(
       desc_pos_y = dplyr::case_when(grepl(stump_label, description)~ifelse(hi>0,0.3,NA_real_),
                                     TRUE~(hi + dplyr::lag(hi, 1)) / 2)) %>%
-    dplyr::mutate(desc_pos_x = dplyr::case_when(grepl(paste0(loss_label,'|',tip_label,'|',stump_label), description) ~ - timbeR::poli5_di(dbh,h,desc_pos_y,coef),
-                                                TRUE ~ timbeR::poli5_di(dbh,h,desc_pos_y,coef)),
+    dplyr::mutate(desc_pos_x = dplyr::case_when(grepl(paste0(loss_label,'|',tip_label,'|',stump_label), description) ~ - timbeR::poly5_di(dbh,h,desc_pos_y,coef),
+                                                TRUE ~ timbeR::poly5_di(dbh,h,desc_pos_y,coef)),
                   fontsize = dplyr::case_when(grepl(paste0(loss_label,'|',tip_label,'|',stump_label), description) ~ 3,
                                               TRUE ~ 4),
-                  section = timbeR::poli5_di(dbh,h,hi,coef))
+                  section = timbeR::poly5_di(dbh,h,hi,coef))
 
   tree %>%
     dplyr::mutate(ri_right = di / 2,

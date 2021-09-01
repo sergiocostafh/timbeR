@@ -11,7 +11,7 @@
 #' @return a numeric value indicating the total or partial volume of the tree.
 #'
 #' @export
-poli5_vol <- function(dbh,h,coef,hi,h0){
+poly5_vol <- function(dbh,h,coef,hi,h0){
 
   b0 <- coef[1]; b1 <- coef[2]; b2 <- coef[3]; b3 <- coef[4]; b4 <- coef[5]; b5 <- coef[6]
 

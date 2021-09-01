@@ -10,8 +10,11 @@
 #' @return a numeric value indicating the diameter at the given height.
 #'
 #' @export
-poli5_di <- function(dbh, h, hi, coef){
+poly5_di <- function(dbh, h, hi, coef){
   b0 <- coef[1]; b1 <- coef[2]; b2 <- coef[3]; b3 <- coef[4]; b4 <- coef[5]; b5 <- coef[6]
   hih <- hi/h
   (b0+b1*hih+b2*hih^2+b3*hih^3+b4*hih^4+b5*hih^5)*dbh
 }
+
+
+

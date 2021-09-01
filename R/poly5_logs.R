@@ -18,7 +18,7 @@
 #' @details when the `broken` and `downgrade` arguments are set to TRUE, the `defect_height` value is considered as the break height of the tree, and the entire tree is downgraded.
 #'
 #' @export
-poli5_logs <-
+poly5_logs <-
   function(dbh,
            h,
            coef,
@@ -109,7 +109,7 @@ poli5_logs <-
         dsort <- assortments[[i, 2]]
         csort <- assortments[[i, 3]]
         psort <- assortments[[i, 4]]/100
-        harv_dsort <- poli5_hi(dbh, h, dsort, coef)
+        harv_dsort <- timbeR::poly5_hi(dbh, h, dsort, coef)
         if ((downgrade & !broken & i < nrow(assortments)) &
             harv_dsort > defect_height) {
           harv_dsort <- defect_height
@@ -133,7 +133,7 @@ poli5_logs <-
         while (h0 <= harv_dsort - csort) {
           nlogs <- nlogs + 1
           h0 <- h0 + csort + psort
-          vsort <- vsort + timbeR::poli5_vol(dbh, h, coef, h0 - psort, h0 - (psort + csort))
+          vsort <- vsort + timbeR::poly5_vol(dbh, h, coef, h0 - psort, h0 - (psort + csort))
         }
         tab_sort[1, i] <- vsort
         tab_sort_n[1, i] <- nlogs
@@ -141,8 +141,8 @@ poli5_logs <-
 
       if (total_volume) {
         tab_sort <- tab_sort %>% tibble::add_column(Total = ifelse(broken,
-                                                                   timbeR::poli5_vol(dbh, h, coef, break_height),
-                                                                   timbeR::poli5_vol(dbh, h, coef, h)))
+                                                                   timbeR::poly5_vol(dbh, h, coef, break_height),
+                                                                   timbeR::poly5_vol(dbh, h, coef, h)))
       }
     }
     return(list(volumes = tab_sort,
