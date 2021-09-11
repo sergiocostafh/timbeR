@@ -14,7 +14,8 @@ poly5_logs(
   broken,
   defect_height,
   eliminate,
-  total_volume
+  total_volume,
+  only_vol
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ poly5_logs(
 \item{eliminate}{if TRUE, the algorithm does not get logs for any assortment present in the assortments table. All will be zero. Default is FALSE.}
 
 \item{total_volume}{if TRUE, it adds an additional column to the results data.frame with the estimate of the total volume of the tree, from the ground height to h if broken argument is FALSE, or to defect_height if broken is TRUE. Default is FALSE.}
+
+\item{only_vol.}{if TRUE returns only volumes (does not return the number of logs). Default is FALSE.}
 }
 \value{
 a list of two data.frames, the first (volumes) with the calculated volumes per assortment, and the second (logs) with the number of logs per assortment.
