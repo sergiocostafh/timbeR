@@ -14,7 +14,7 @@ best_hypso_model(fit_hypso_list, criteria, model_name)
 \item{model_name}{force the selection of a specific model. Character. Optional. Check the details for more information.}
 }
 \value{
-a list containing two elements. The first one, named \code{model} is the selected model - a \code{lm} object. The second, named \code{transform}, is a string to be used in the \code{predict_h} function.
+a list containing three elements. The element \code{name} is the first one, containing the name of the selected model. The second, named \code{model} is the \code{lm} object. The third, named \code{transform}, is a string to be used in the \code{predict_h} function.
 }
 \description{
 Get the best model from a list generated from the \code{fit_hypso} function.

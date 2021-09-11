@@ -10,7 +10,7 @@
 #'
 #' To force the use of a specific model, declare one of the twelve models in the `model_name` argument. Valid options are: Linear', 'Trorey', 'Cubic', 'Prodan', 'Prodan2', 'Assman', 'Henricksen', 'Stoffel', 'Curtis', 'Petterson', 'Naslund' and 'Mean'.
 #'
-#' @return a list containing two elements. The first one, named `model` is the selected model - a `lm` object. The second, named `transform`, is a string to be used in the `predict_h` function.
+#' @return a list containing three elements. The element `name` is the first one, containing the name of the selected model. The second, named `model` is the `lm` object. The third, named `transform`, is a string to be used in the `predict_h` function.
 #'
 #' @export
 best_hypso_model <- function(fit_hypso_list, criteria, model_name){
@@ -86,7 +86,8 @@ best_hypso_model <- function(fit_hypso_list, criteria, model_name){
 
   }
 
-  return(list(model = fit_hypso_list[[2]][[model]],
-              transform = fit_hypso_list[[1]] %>% dplyr::filter(name==model) %>% dplyr::pull(transform)))
+  return(list(name = fit_hypso_list[[1]] %>% dplyr::filter(name==model) %>% dplyr::pull(name),
+         model = fit_hypso_list[[2]][[model]],
+         transform = fit_hypso_list[[1]] %>% dplyr::filter(name==model) %>% dplyr::pull(transform)))
 
 }
