@@ -1,5 +1,5 @@
 Package: timbeR
-Title: Timber volume and number of logs per assortment based on taper equations
+Title: Functions for processing forest inventories for commercial purposes.
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Sérgio",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            email = "sergio.vscf@gmail.com",
            comment = c(ORCID = "0000-0001-5432-317X"))
-Description: Functions for estimating volumes, number of logs, diameters along the stem and heights at which certain diameters occur, based on taper functions and other parameters.
+Description: Functions for hypsometric modelling and estimation of volumes, number of logs, diameters along the stem and heights at which certain diameters occur, based on taper functions and other parameters.
 Depends: R(>= 3.3)
 Imports: 
     dplyr,
