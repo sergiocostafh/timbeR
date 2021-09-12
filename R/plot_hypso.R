@@ -9,13 +9,13 @@
 #' @export
 plot_hypso <- function(fit_hypso_list) {
 
-  data <- fit_hypso_list$obs_data
+  df <- fit_hypso_list$obs_data
 
-  y_name <- colnames(data)[1]
-  x_name <- colnames(data)[2]
+  y_name <- colnames(df)[1]
+  x_name <- colnames(df)[2]
 
-  xmax <- data %>% dplyr::pull(!!x_name) %>% max()
-  ymin <- data %>% dplyr::pull(!!y_name) %>% min()
+  xmax <- df %>% dplyr::pull(!!x_name) %>% max()
+  ymin <- df %>% dplyr::pull(!!y_name) %>% min()
 
   labels <- tibble::tibble(xmax,
                    ymin)
@@ -31,7 +31,7 @@ plot_hypso <- function(fit_hypso_list) {
     dplyr::mutate(name = factor(name, levels = levels(labels$name), ordered = T))
 
   ggplot2::ggplot(mapping = ggplot2::aes_string(x=x_name, y = y_name)) +
-    ggplot2::geom_point(data = data)+
+    ggplot2::geom_point(data = df)+
     ggplot2::geom_text(ggplot2::aes(label = paste0('Syx: ',round(syx_perc*100,2),'%\nR²adj:',round(adj_r_squared,3))),
               hjust = 1,
               vjust = 0,
