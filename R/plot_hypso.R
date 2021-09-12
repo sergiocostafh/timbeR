@@ -37,7 +37,7 @@ plot_hypso <- function(fit_hypso_list) {
               vjust = 0,
               size = 3,
               data=labels)+
-    ggplot2::geom_line(data = curve)+
+    ggplot2::geom_line(data = curve, color = 'steelblue')+
     ggplot2::facet_wrap(~name)
 
 }
