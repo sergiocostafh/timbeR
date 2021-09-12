@@ -107,7 +107,7 @@ poly5_logs <-
 
     if (any(c(is.na(dbh), is.na(h), eliminate))) {
       tab_sort[1, ] <- 0
-      tab_sort <- tab_sort %>% tibble::add_column(`Volume Total` = 0)
+      if(total_volume) tab_sort <- tab_sort %>% tibble::add_column(Total = 0)
       tab_sort_n[1, ] <- 0
     }
     else {
