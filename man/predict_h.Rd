@@ -9,7 +9,7 @@ predict_h(data, model, transform, dbh_col)
 \arguments{
 \item{data}{tree measurement data.}
 
-\item{model}{one of the twelve hypsometric models present in the \code{fit_hypso} function.}
+\item{model}{one of the twelve hypsometric models present in the \code{fit_hypsometric} function.}
 
 \item{transform}{transformation to be performed on the predicted values. Use the \code{transform} element from the list resulting from the \code{best_hypso_model} function.}
 
@@ -22,5 +22,5 @@ a numerical vector containing the height estimates.
 Estimate the height of trees using one of the twelve hypsometric models in the \code{timbeR} package.
 }
 \details{
-check the \code{fit_hypso} function help for more details.
+check the \code{fit_hypsometric} function help for more details.
 }

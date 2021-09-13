@@ -3,11 +3,11 @@
 #' Estimate the height of trees using one of the twelve hypsometric models in the `timbeR` package.
 #'
 #' @param data tree measurement data.
-#' @param model one of the twelve hypsometric models present in the `fit_hypso` function.
+#' @param model one of the twelve hypsometric models present in the `fit_hypsometric` function.
 #' @param transform transformation to be performed on the predicted values. Use the `transform` element from the list resulting from the `best_hypso_model` function.
 #' @param dbh_col the name of the column containing the values from diameter to breast height. Character. Required for Naslund and Prodan functions.
 #'
-#' @details check the `fit_hypso` function help for more details.
+#' @details check the `fit_hypsometric` function help for more details.
 #'
 #' @return a numerical vector containing the height estimates.
 #'

@@ -13,7 +13,7 @@
 #' @return a list containing four elements. The first one, named `model_evaluation` is a data.frame containing twelve rows with the names, formulas and evaluation parameters of the fitted models. The second, named `models`, is a list containing the twelve `lm` models. The third, named `curves`, is a data.frame containing the heights predicted by each of the twelve fitted models, as well as the observed dbh values and the name of the models. The last, named `obs_data` is a data.frame with two columns referring to the observed values of dbh (`dbh_col`) and height (`h_col`).
 #'
 #' @export
-fit_hypso <- function(data, h_col, dbh_col){
+fit_hypsometric <- function(data, h_col, dbh_col){
 
 
   if(missing(dbh_col)){

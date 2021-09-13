@@ -1,6 +1,6 @@
 #' Remove unwanted data by selecting it
 #'
-#' Delete unwanted records from the dataset (e.g. outliers) by selecting them ia a scatter plot.
+#' Delete unwanted records from the dataset (e.g. outliers) by selecting them in a scatter plot.
 #'
 #' @param data a data.frame.
 #' @param xvar quoted name of the variable to be displayed in the x axis.
@@ -9,7 +9,7 @@
 #' @return the data.frame given to the `data` argument, without the selected points.
 #'
 #' @export
-sel_remove <- function(data, xvar, yvar) {
+select_and_remove <- function(data, xvar, yvar) {
 
   shiny::runGadget(
 
