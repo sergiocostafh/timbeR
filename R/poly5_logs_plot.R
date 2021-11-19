@@ -5,7 +5,7 @@
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.
 #' @param coef numerical vector containing six coefficients of the 5th degree polynomial function that describes the tree's taper.
-#' @param assortments a data.frame with four columns and n rows, where n is the number of different wood assortments to be obtained from the tree stem. The first column must contain the names of the assortments, the second, numerical, contains the minimum diameters at the small end of the logs, in centimeters. The third column, numerical, contains the lengths of the logs, in meters. The fourth column, numerical, contains the values in centimeters referring to the loss of wood due to cutting logs. The algorithm prioritizes the extraction of assortments along the stem in the order presented in the data.frame, starting from the first line, to the last.
+#' @param assortments a data.frame with five columns and n rows, where n is the number of different wood assortments to be obtained from the tree stem. The first column must contain the names of the assortments, the second, numerical, contains the minimum diameters at the small end of the logs, in centimeters. The third column, numerical, contains the minimum lengths of the logs, in meters. The fourth column, numerical, contains the maximum lengths of the logs, in meters. The fifth column, numerical, contains the values in centimeters referring to the loss of wood due to cutting logs. The algorithm prioritizes the extraction of assortments along the stem in the order presented in the data.frame, starting from the first line, to the last.
 #' @param stump_height tree cutting height, in meters. Default is 0.
 #' @param downgrade if TRUE, the algorithm,from the defect_height onwards, simulates log extraction only for the last assortment in the assortments data.frame. Default is FALSE.
 #' @param broken if TRUE, the algorithm will simulate the extraction of logs only up to the defect_height. Default is FALSE.
@@ -35,7 +35,7 @@ poly5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
 
   suppressMessages(
     nlogs <-
-      timbeR::poly5_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
+      poly5_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
   )
 
   if(!missing(defect_height) & !downgrade & !broken){
@@ -107,20 +107,21 @@ poly5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
   for (i in 1:nrow(nlogs_assortments)) {
     sort <- nlogs_assortments[i, ]
     if (sort$Nlogs > 0) {
+      hi_dpf <- poly5_hi(dbh, h, sort$DPF, coef)
       for (j in 1:sort$Nlogs) {
         h0 <- tree_sections %>% dplyr::slice_tail(n = 1) %>% dplyr::pull(hi)
         tree_sections <- tree_sections %>%
           tibble::add_row(
-            hi = unlist(sort[,3]) + h0,
-            description = paste0(sort[,1], ' (', sort[,3], 'm)')
+            hi = ifelse(unlist(sort[,4]) + h0 < hi_dpf, unlist(sort[,4]) + h0, round(hi_dpf - h0,2) + h0),
+            description = paste0(sort[,1], ' (', ifelse(unlist(sort[,4]) + h0 < hi_dpf, unlist(sort[,4]), round(hi_dpf - h0,2)), 'm)')
           )
 
         h0 <- tree_sections %>% dplyr::slice_tail(n = 1) %>% dplyr::pull(hi)
 
         tree_sections <- tree_sections %>%
           dplyr::add_row(
-            hi = unlist(sort[,4]) / 100 + h0,
-            description = paste0(loss_label, ' (', sort[,4], 'cm)')
+            hi = unlist(sort[,5]) / 100 + h0,
+            description = paste0(loss_label, ' (', sort[,5], 'cm)')
           )
       }
     }
@@ -215,3 +216,6 @@ poly5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
       plot.title.position = 'plot'
     )
 }
+
+
+

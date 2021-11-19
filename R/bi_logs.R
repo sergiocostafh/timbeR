@@ -5,7 +5,7 @@
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.
 #' @param coef numerical vector containing seven coefficients of the Bi taper equation.
-#' @param assortments a data.frame with four columns and n rows, where n is the number of different wood assortments to be obtained from the tree stem. The first column must contain the names of the assortments, the second, numerical, contains the minimum diameters at the small end of the logs, in centimeters. The third column, numerical, contains the lengths of the logs, in meters. The fourth column, numerical, contains the values in centimeters referring to the loss of wood due to cutting logs. The algorithm prioritizes the extraction of assortments along the stem in the order presented in the data.frame, starting from the first line, to the last.
+#' @param assortments a data.frame with five columns and n rows, where n is the number of different wood assortments to be obtained from the tree stem. The first column must contain the names of the assortments, the second, numerical, contains the minimum diameters at the small end of the logs, in centimeters. The third column, numerical, contains the minimum lengths of the logs, in meters. The fourth column, numerical, contains the maximum lengths of the logs, in meters. The fifth column, numerical, contains the values in centimeters referring to the loss of wood due to cutting logs. The algorithm prioritizes the extraction of assortments along the stem in the order presented in the data.frame, starting from the first line, to the last.
 #' @param stump_height tree cutting height, in meters. Default is 0.
 #' @param downgrade if TRUE, the algorithm,from the defect_height onwards, simulates log extraction only for the last assortment in the assortments data.frame. Default is FALSE.
 #' @param broken if TRUE, the algorithm will simulate the extraction of logs only up to the defect_height. Default is FALSE.
@@ -94,8 +94,8 @@ bi_logs <-
 
     h0 <- stump_height
 
-    colnames(assortments) <- c("Assortment", "SED", "Length",
-                               "Loss")
+    colnames(assortments) <- c("Assortment", "SED", "Min Length",
+                               "Max Length", "Loss")
 
     tab_sort <- (assortments %>% dplyr::select(Assortment, SED) %>%
                    tidyr::pivot_wider(names_from = Assortment, values_from = SED))[0,
@@ -113,7 +113,8 @@ bi_logs <-
     else {
       for (i in seq_along(assortments$Assortment)) {
         dsort <- assortments[[i, 2]]
-        csort <- assortments[[i, 3]]
+        cminsort <- assortments[[i, 3]]
+        cmaxsort <- assortments[[i, 4]]
         psort <- assortments[[i, 4]]/100
         harv_dsort <- timbeR::bi_hi(dbh, h, dsort, coef)
         if ((downgrade & !broken & i < nrow(assortments)) &
@@ -136,8 +137,11 @@ bi_logs <-
 
         nlogs <- 0
         vsort <- 0
-        while (h0 <= harv_dsort - csort) {
+        while (h0 <= harv_dsort - cminsort) {
           nlogs <- nlogs + 1
+
+          csort <- ifelse(h0 <= harv_dsort - cmaxsort, cmaxsort, harv_dsort-h0)
+
           h0 <- h0 + csort + psort
           vsort <- vsort + timbeR::bi_vol(dbh, h, coef, h0 - psort, h0 - (psort + csort))
         }
@@ -160,3 +164,4 @@ bi_logs <-
                 logs = tab_sort_n))
     }
   }
+
