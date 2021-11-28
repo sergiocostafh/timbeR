@@ -28,5 +28,5 @@ Estimates the total or partial volume of the tree from the diameter at breast he
 \details{
 the Kozak (2004) variable-form taper function is represented mathematically by the following expression
 
-di ~b0*(dbh^b1)\emph{(h^b2)}((1-hih^(1/4))/(1-(p^(1/3))))^(b3\emph{hih^4+b4}(1/exp(dbh/h))+b5*((1-hih^(1/4))/(1-(p^(1/3))))^0.1+b6*(1/dbh)+b7*(h^(1-hih^(1/3)))+b8*((1-hih^(1/4))/(1-(p^(1/3)))))
+di ~b0*(dbh^b1)\emph{(h^b2)}((1-(hi/h)^(1/4))/(1-(p^(1/3))))^(b3*(hi/h)^4+b4*(1/exp(dbh/h))+b5*((1-(hi/h)^(1/4))/(1-(p^(1/3))))^0.1+b6*(1/dbh)+b7*(h^(1-(hi/h)^(1/3)))+b8*((1-(hi/h)^(1/4))/(1-(p^(1/3)))))
 }
