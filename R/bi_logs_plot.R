@@ -120,7 +120,7 @@ bi_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, bro
 
         tree_sections <- tree_sections %>%
           dplyr::add_row(
-            hi = unlist(sort[,4]) / 100 + h0,
+            hi = unlist(sort[,5]) / 100 + h0,
             description = paste0(loss_label, ' (', sort[,5], 'cm)')
           )
       }
