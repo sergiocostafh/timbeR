@@ -108,7 +108,7 @@ kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrad
   for (i in 1:nrow(nlogs_assortments)) {
     sort <- nlogs_assortments[i, ]
     if (sort$Nlogs > 0) {
-      hi_dpf <- poly5_hi(dbh, h, sort$DPF, coef)
+      hi_dpf <- kozak_hi(dbh, h, sort$DPF, coef)
       for (j in 1:sort$Nlogs) {
         h0 <- tree_sections %>% dplyr::slice_tail(n = 1) %>% dplyr::pull(hi)
         tree_sections <- tree_sections %>%

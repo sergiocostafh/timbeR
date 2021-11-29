@@ -33,11 +33,6 @@ bi_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, bro
     broken <- FALSE
   }
 
-  suppressMessages(
-    nlogs <-
-      timbeR::bi_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
-  )
-
   if(!missing(defect_height) & !downgrade & !broken){
     message('The `broken` and `downgrade` arguments are FALSE. The value entered for `defect_height` will be discarded')
   }
@@ -78,6 +73,11 @@ bi_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, bro
 
   if(!exists('break_height')){break_height <- h}
 
+  suppressMessages(
+    nlogs <-
+      timbeR::bi_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
+  )
+
   stump_label <- dplyr::case_when(lang=='eng'~'Stump',
                                   lang=='pt-BR'~'Toco')
   loss_label <- dplyr::case_when(lang=='eng'~'Loss',
@@ -107,7 +107,7 @@ bi_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, bro
   for (i in 1:nrow(nlogs_assortments)) {
     sort <- nlogs_assortments[i, ]
     if (sort$Nlogs > 0) {
-      hi_dpf <- poly5_hi(dbh, h, sort$DPF, coef)
+      hi_dpf <- bi_hi(dbh, h, sort$DPF, coef)
       for (j in 1:sort$Nlogs) {
         h0 <- tree_sections %>% dplyr::slice_tail(n = 1) %>% dplyr::pull(hi)
         tree_sections <- tree_sections %>%

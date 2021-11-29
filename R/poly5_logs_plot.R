@@ -33,11 +33,6 @@ poly5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
     broken <- FALSE
   }
 
-  suppressMessages(
-    nlogs <-
-      poly5_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
-  )
-
   if(!missing(defect_height) & !downgrade & !broken){
     message('The `broken` and `downgrade` arguments are FALSE. The value entered for `defect_height` will be discarded')
   }
@@ -77,6 +72,11 @@ poly5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, 
   }
 
   if(!exists('break_height')){break_height <- h}
+
+  suppressMessages(
+    nlogs <-
+      poly5_logs(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, F)
+  )
 
   stump_label <- dplyr::case_when(lang=='eng'~'Stump',
                                   lang=='pt-BR'~'Toco')
