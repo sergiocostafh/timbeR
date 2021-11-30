@@ -17,7 +17,7 @@
 #' @export
 bi_vol <- function(dbh, h, coef, hi, h0) {
 
-  b0 <- coef[1]; b1 <- coef[2]; b2 <- coef[3]; b3 <- coef[4]; b4 <- coef[5]; b5 <- coef[6]; b6 <- coef[7]
+  b0 <- coef[[1]]; b1 <- coef[[2]]; b2 <- coef[[3]]; b3 <- coef[[4]]; b4 <- coef[[5]]; b5 <- coef[[6]]; b6 <- coef[[7]]
 
   if (missing(hi)) {
     hi <- h

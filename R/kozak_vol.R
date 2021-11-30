@@ -18,7 +18,7 @@
 #' @export
 kozak_vol <- function(dbh, h, coef, p, hi, h0) {
 
-  b0 <- coef[1]; b1 <- coef[2]; b2 <- coef[3]; b3 <- coef[4]; b4 <- coef[5]; b5 <- coef[6]; b6 <- coef[7]; b7 <- coef[8]; b8 <- coef[9]
+  b0 <- coef[[1]]; b1 <- coef[[2]]; b2 <- coef[[3]]; b3 <- coef[[4]]; b4 <- coef[[5]]; b5 <- coef[[6]]; b6 <- coef[[7]]; b7 <- coef[[8]]; b8 <- coef[[9]]; p <- p[[1]]
 
   if (missing(hi)) {
     hi <- h
