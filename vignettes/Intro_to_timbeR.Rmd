@@ -11,7 +11,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  echo = TRUE, warning = FALSE, message = FALSE, fig.align = 'center'
+  echo = TRUE, warning = FALSE, message = FALSE, fig.align = 'center',
+  out.width = '75%', fig.dim = c(8,5)
 )
 ```
 ### Fitting taper models
