@@ -7,14 +7,14 @@
 best_hypsometric_model(fit_hypsometric_list, criteria, model_name)
 }
 \arguments{
+\item{fit_hypsometric_list}{list resulting from the \code{fit_hypsometric} function.}
+
 \item{criteria}{criteria for selecting the best model. Valid options are \code{syx}, \code{adj_r_squared} or \code{both}. Optional. Default is \code{syx}. Check the details for more information.}
 
 \item{model_name}{force the selection of a specific model. Character. Optional. Check the details for more information.}
-
-\item{fit_hypso_list}{list resulting from the \code{fit_hypsometric} function.}
 }
 \value{
-a list containing three elements. The element \code{name} is the first one, containing the name of the selected model. The second, named \code{model} is the \code{lm} object. The third, named \code{transform}, is a string to be used in the \code{predict_h} function.
+a list containing three elements. The element \code{name} contains the name of the selected model. The second element, named \code{model} is the \code{lm} object. The third, named \code{transform}, is a string to be used in the \code{predict_h} function.
 }
 \description{
 Get the best model from a list generated from the \code{fit_hypsometric} function.

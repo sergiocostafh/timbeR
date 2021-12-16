@@ -2,7 +2,7 @@
 % Please edit documentation in R/bi_logs_plot.R
 \name{bi_logs_plot}
 \alias{bi_logs_plot}
-\title{Visualize the simulation of log extraction using a Bi variable-form taper equation.}
+\title{Visualize the simulation of log cutting along the stem using a Bi variable-form taper equation.}
 \usage{
 bi_logs_plot(
   dbh,

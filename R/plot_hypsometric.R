@@ -4,7 +4,7 @@
 #'
 #' @param fit_hypsometric_list list resulting from the `fit_hypsometric` function.
 #'
-#' @return a list containing two elements. The first one, named `model` is the selected model - a `lm` object. The second, named `transform`, is a string to be used in the `predict_h` function.
+#' @return a list containing two elements. The first one, named `model` is the selected model, a `lm` object. The second, named `transform`, is a string to be used in the `predict_h` function.
 #'
 #' @export
 plot_hypsometric <- function(fit_hypsometric_list) {
@@ -32,7 +32,7 @@ plot_hypsometric <- function(fit_hypsometric_list) {
 
   ggplot2::ggplot(mapping = ggplot2::aes_string(x=x_name, y = y_name)) +
     ggplot2::geom_point(data = df)+
-    ggplot2::geom_text(ggplot2::aes(label = paste0('Syx: ',round(syx_perc*100,2),'%\nR²adj:',round(adj_r_squared,3))),
+    ggplot2::geom_text(ggplot2::aes(label = paste0('Syx: ',round(syx_perc*100,2),'%\nR\\u00b2adj:',round(adj_r_squared,3))),
               hjust = 1,
               vjust = 0,
               size = 3,

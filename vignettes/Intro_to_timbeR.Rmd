@@ -1,0 +1,22 @@
+---
+title: "Fitting to taper models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to timbeR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+The timbeR package includes functions for the application of three different taper models:
+
+
+```{r setup}
+library(timbeR)
+
+```

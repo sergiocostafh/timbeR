@@ -2,7 +2,7 @@
 % Please edit documentation in R/kozak_logs_plot.R
 \name{kozak_logs_plot}
 \alias{kozak_logs_plot}
-\title{Visualize the simulation of log extraction using a Kozak (2004) variable-form taper equation.}
+\title{Visualize the simulation of log cutting along the stem using a Kozak (2004) variable-form taper equation.}
 \usage{
 kozak_logs_plot(
   dbh,

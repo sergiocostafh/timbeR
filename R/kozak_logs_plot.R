@@ -1,4 +1,4 @@
-#' Visualize the simulation of log extraction using a Kozak (2004) variable-form taper equation.
+#' Visualize the simulation of log cutting along the stem using a Kozak (2004) variable-form taper equation.
 #'
 #' Plot the shape of the tree and visualize the extracted logs based on the tree measurements, assortments data.frame, and the Kozak (2004) variable-form taper equation.
 #'
@@ -108,7 +108,7 @@ kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrad
   for (i in 1:nrow(nlogs_assortments)) {
     sort <- nlogs_assortments[i, ]
     if (sort$Nlogs > 0) {
-      hi_dpf <- kozak_hi(dbh, h, sort$DPF, coef, p)
+      hi_dpf <- kozak_hi(dbh, h, sort[[2]], coef, p)
       for (j in 1:sort$Nlogs) {
         h0 <- tree_sections %>% dplyr::slice_tail(n = 1) %>% dplyr::pull(hi)
         tree_sections <- tree_sections %>%

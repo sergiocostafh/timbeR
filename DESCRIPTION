@@ -1,9 +1,9 @@
 Package: timbeR
-Title: Functions for processing forest inventories for commercial purposes.
+Title: Calculate Volumes by Assortment in Forest Inventories
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Sérgio",
-           family = "Costa",
+    person(given = "Sergio",
+           family = "da Costa",
            role = c("aut", "cre", "cph"),
            email = "sergio.vscf@gmail.com",
            comment = c(ORCID = "0000-0001-5432-317X"))
@@ -15,9 +15,16 @@ Imports:
     cowplot,
     tidyr,
     tibble,
-    magrittr
-License: MIT
+    magrittr,
+    lazyeval,
+    miniUI,
+    shiny
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

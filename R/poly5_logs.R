@@ -12,7 +12,7 @@
 #' @param defect_height the height, in meters, from which the logs will be downgraded (if downgrade is TRUE) or log extraction simulation will be stopped (if broken is TRUE). Default is 0 for downgrade = TRUE (the whole tree is downgraded) and h * 0.5 for broken = TRUE (the tree is broken from half its original/estimated total height).
 #' @param eliminate if TRUE, the algorithm does not get logs for any assortment present in the assortments table. All will be zero. Default is FALSE.
 #' @param total_volume if TRUE, it adds an additional column to the results data.frame with the estimate of the total volume of the tree, from the ground height to h if broken argument is FALSE, or to defect_height if broken is TRUE. Default is FALSE.
-#' @param only_vol. if TRUE returns only volumes (does not return the number of logs). Default is FALSE.
+#' @param only_vol if TRUE returns only volumes (does not return the number of logs). Default is FALSE.
 #'
 #' @return a list of two data.frames, the first (volumes) with the calculated volumes per assortment, and the second (logs) with the number of logs per assortment.
 #'

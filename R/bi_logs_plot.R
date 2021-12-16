@@ -1,4 +1,4 @@
-#' Visualize the simulation of log extraction using a Bi variable-form taper equation.
+#' Visualize the simulation of log cutting along the stem using a Bi variable-form taper equation.
 #'
 #' Plot the shape of the tree and visualize the extracted logs based on the tree measurements, assortments data.frame, and the Bi variable-form taper equation.
 #'
@@ -107,7 +107,7 @@ bi_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, bro
   for (i in 1:nrow(nlogs_assortments)) {
     sort <- nlogs_assortments[i, ]
     if (sort$Nlogs > 0) {
-      hi_dpf <- bi_hi(dbh, h, sort$DPF, coef)
+      hi_dpf <- timbeR::bi_hi(dbh, h, sort[[2]], coef)
       for (j in 1:sort$Nlogs) {
         h0 <- tree_sections %>% dplyr::slice_tail(n = 1) %>% dplyr::pull(hi)
         tree_sections <- tree_sections %>%

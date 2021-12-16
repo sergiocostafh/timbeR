@@ -2,7 +2,7 @@
 % Please edit documentation in R/poly5_logs_plot.R
 \name{poly5_logs_plot}
 \alias{poly5_logs_plot}
-\title{Visualize the simulation of log extraction using a 5th degree polynomial that describes the tree taper.}
+\title{Visualize the simulation of log cutting along the stem using a 5th degree polynomial that describes the tree taper.}
 \usage{
 poly5_logs_plot(
   dbh,
