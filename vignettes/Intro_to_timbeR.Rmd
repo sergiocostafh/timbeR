@@ -285,3 +285,59 @@ poly5_logs_plot(dbh, h, coef_poli, assortments)
 bi_logs_plot(dbh, h, coef_bi, assortments)
 kozak_logs_plot(dbh, h, coef_kozak, p_kozak, assortments)
 ```
+
+### Using `timbeR` functions at forest inventory scale  
+
+Log estimation functions are performed one tree at a time. Applying these functions to multiple trees can be performed in different ways. Below are some examples using the base R function `mapply` and using `pmap` function from `purrr` package.  
+  
+```{r}
+# Using mapply
+
+tree_data <- data.frame(dbh = c(18.3, 23.7, 27.2, 24.5, 20, 19.7),
+                   h = c(18, 24, 28, 24, 18.5, 19.2))
+
+assortment_vol <- mapply(
+  poly5_logs,
+  dbh = tree_data$dbh,
+  h = tree_data$h,
+  SIMPLIFY = T,
+  MoreArgs = list(
+    coef = coef_poli,
+    assortments = assortments,
+    stump_height = 0.2,
+    total_volume = T,
+    only_vol = T
+  )
+) %>%
+  t()
+
+
+assortment_vol
+```
+  
+The function returned the volumes for each of the trees. We can join the data through a simple binding between the `tree_data` and the output.  
+
+```{r}
+library(tidyr)
+
+cbind(tree_data, assortment_vol) %>% 
+  unnest()
+```
+  
+```{r}
+# Using pmap
+
+library(purrr)
+
+tree_data %>% 
+  mutate(coef = list(coef_poli),
+         assortments = list(assortments),
+         stump_height = 0.2,
+         total_volume = T,
+         only_vol = T) %>% 
+  mutate(assortment_vol = pmap(.,poly5_logs)) %>% 
+  select(dbh, h, assortment_vol) %>% 
+  unnest(assortment_vol)
+
+```
+

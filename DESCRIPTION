@@ -3,7 +3,7 @@ Title: Calculate Volumes by Assortment in Forest Inventories
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Sergio",
-           family = "da Costa",
+           family = "Costa",
            role = c("aut", "cre", "cph"),
            email = "sergio.vscf@gmail.com",
            comment = c(ORCID = "0000-0001-5432-317X"))
@@ -26,5 +26,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    minpack.lm,
+    purrr
 VignetteBuilder: knitr
