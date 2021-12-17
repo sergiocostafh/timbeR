@@ -12,9 +12,36 @@
 #' @param defect_height the height, in meters, from which the logs will be downgraded (if downgrade is TRUE) or log extraction simulation will be stopped (if broken is TRUE). Default is h * 0.5.
 #' @param lang language in which plot labels will be displayed. Current options are 'en' and 'pt-BR'. Default is 'en'.
 #'
+#' @return a ggplot object.
+#'
 #' @details check the `poly5_logs` function help for more details.
 #'
-#' @return a ggplot object.
+#' @examples
+#'
+#' library(dplyr)
+#' library(minpack.lm)
+#' library(timbeR)
+#'
+#' tree_scaling <- tree_scaling %>%
+#' mutate(did = di/dbh,
+#'        hih = hi/h)
+#'
+#' poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
+#'
+#' coef_poli <- coef(poli5)
+#'
+#' dbh <- 25
+#' h <- 20
+#'
+#' assortments <- data.frame(
+#'   NAME = c('15-25','4-15'),
+#'   SED = c(15,4),
+#'   MINLENGTH = c(2.65,2),
+#'   MAXLENGTH = c(2.65,4.2),
+#'   LOSS = c(5,5)
+#' )
+#'
+#' poly5_logs_plot(dbh, h, coef_poli, assortments)
 #'
 #' @export
 poly5_logs_plot <- function(dbh, h, coef, assortments, stump_height, downgrade, broken, defect_height, lang) {

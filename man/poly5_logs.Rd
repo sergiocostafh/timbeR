@@ -50,3 +50,31 @@ Simulate the extraction of logs from a tree from its measurements, taper functio
 \details{
 when the \code{broken} and \code{downgrade} arguments are set to TRUE, the \code{defect_height} value is considered as the break height of the tree, and the entire tree is downgraded.
 }
+\examples{
+
+library(dplyr)
+library(minpack.lm)
+library(timbeR)
+
+tree_scaling <- tree_scaling \%>\%
+mutate(did = di/dbh,
+       hih = hi/h)
+
+poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
+
+coef_poli <- coef(poli5)
+
+dbh <- 25
+h <- 20
+
+assortments <- data.frame(
+  NAME = c('15-25','4-15'),
+  SED = c(15,4),
+  MINLENGTH = c(2.65,2),
+  MAXLENGTH = c(2.65,4.2),
+  LOSS = c(5,5)
+)
+
+poly5_logs(dbh, h, coef_poli, assortments)
+
+}

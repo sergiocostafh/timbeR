@@ -28,3 +28,33 @@ the Kozak (2004) variable-form taper function is represented mathematically by t
 
 di ~b0*(dbh^b1)\emph{(h^b2)}((1-(hi/h)^(1/4))/(1-(p^(1/3))))^(b3*(hi/h)^4+b4*(1/exp(dbh/h))+b5*((1-(hi/h)^(1/4))/(1-(p^(1/3))))^0.1+b6*(1/dbh)+b7*(h^(1-(hi/h)^(1/3)))+b8*((1-(hi/h)^(1/4))/(1-(p^(1/3)))))
 }
+\examples{
+
+library(dplyr)
+library(minpack.lm)
+library(timbeR)
+
+tree_scaling <- tree_scaling \%>\%
+mutate(did = di/dbh,
+       hih = hi/h)
+
+kozak <- nlsLM(di ~
+                 b0*(dbh**b1)*(h**b2)*((1-hih**(1/4))/(1-(p^(1/3))))**(b3*hih**4+b4*(1/exp(dbh/h))+b5*((1-hih**(1/4))/(1-(p^(1/3))))**0.1+b6*
+                                                                         (1/dbh)+b7*(h**(1-
+                                                                                           hih**(1/3)))+b8*((1-hih**(1/4))/(1-(p^(1/3))))),
+               start=list(b0=1.00,b1=.97,b2=.03,b3=.49,b4=-
+                            0.87,b5=0.50,b6=3.88,b7=0.03,b8=-0.19, p = .1),
+               data = tree_scaling,
+               control = nls.lm.control(maxiter = 1000, maxfev = 2000)
+)
+
+coef_kozak <- coef(kozak)[-10]
+p_kozak <- coef(kozak)[10]
+
+h <- 20
+dbh <- 25
+hi <- 15
+
+kozak_hi(dbh, h, hi, coef_kozak, p_kozak)
+
+}

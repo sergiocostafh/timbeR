@@ -21,3 +21,24 @@ as numeric value indicating the height at which the given diameter occurs.
 \description{
 Estimates the height at which a given diameter occurs in a tree, from the diameter at breast height, total height and coefficients of the 5th degree polynomial function that describes the tree's taper.
 }
+\examples{
+
+library(dplyr)
+library(minpack.lm)
+library(timbeR)
+
+tree_scaling <- tree_scaling \%>\%
+mutate(did = di/dbh,
+       hih = hi/h)
+
+poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
+
+coef_poli <- coef(poli5)
+
+dbh <- 25
+h <- 20
+hi <- 15
+
+poly5_hi(dbh, h, hi, coef_poli)
+
+}

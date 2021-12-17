@@ -44,3 +44,31 @@ Plot the shape of the tree and visualize the extracted logs based on the tree me
 \details{
 check the \code{poly5_logs} function help for more details.
 }
+\examples{
+
+library(dplyr)
+library(minpack.lm)
+library(timbeR)
+
+tree_scaling <- tree_scaling \%>\%
+mutate(did = di/dbh,
+       hih = hi/h)
+
+poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
+
+coef_poli <- coef(poli5)
+
+dbh <- 25
+h <- 20
+
+assortments <- data.frame(
+  NAME = c('15-25','4-15'),
+  SED = c(15,4),
+  MINLENGTH = c(2.65,2),
+  MAXLENGTH = c(2.65,4.2),
+  LOSS = c(5,5)
+)
+
+poly5_logs_plot(dbh, h, coef_poli, assortments)
+
+}

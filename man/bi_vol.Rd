@@ -50,6 +50,7 @@ dbh <- 25
 h <- 20
 
 bi_vol(dbh, h, coef_bi)
+
 hi = 15
 h0 = .2
 

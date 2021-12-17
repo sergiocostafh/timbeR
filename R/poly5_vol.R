@@ -10,6 +10,30 @@
 #'
 #' @return a numeric value indicating the total or partial volume of the tree.
 #'
+#' @examples
+#'
+#' library(dplyr)
+#' library(minpack.lm)
+#' library(timbeR)
+#'
+#' tree_scaling <- tree_scaling %>%
+#' mutate(did = di/dbh,
+#'        hih = hi/h)
+#'
+#' poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
+#'
+#' coef_poli <- coef(poli5)
+#'
+#' dbh <- 25
+#' h <- 20
+#'
+#' poly5_vol(dbh, h, coef_poli)
+#'
+#' hi = 15
+#' h0 = .2
+#'
+#' poly5_vol(dbh, h, coef_poli, hi, h0)
+#'
 #' @export
 poly5_vol <- function(dbh,h,coef,hi,h0){
 

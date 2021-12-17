@@ -9,6 +9,26 @@
 #'
 #' @return as numeric value indicating the height at which the given diameter occurs.
 #'
+#' @examples
+#'
+#' library(dplyr)
+#' library(minpack.lm)
+#' library(timbeR)
+#'
+#' tree_scaling <- tree_scaling %>%
+#' mutate(did = di/dbh,
+#'        hih = hi/h)
+#'
+#' poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
+#'
+#' coef_poli <- coef(poli5)
+#'
+#' dbh <- 25
+#' h <- 20
+#' hi <- 15
+#'
+#' poly5_hi(dbh, h, hi, coef_poli)
+#'
 #' @export
 poly5_hi <- function(dbh, h, di, coef){
   b0 <- coef[1]; b1 <- coef[2]; b2 <- coef[3]; b3 <- coef[4]; b4 <- coef[5]; b5 <- coef[6]

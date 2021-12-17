@@ -21,3 +21,24 @@ a numeric value indicating the diameter at the given height.
 \description{
 Estimates the diameter at a given height of a tree from the diameter at breast height, total height and the coefficients of the 5th degree polynomial function that describes the tree's taper.
 }
+\examples{
+
+library(dplyr)
+library(minpack.lm)
+library(timbeR)
+
+tree_scaling <- tree_scaling \%>\%
+mutate(did = di/dbh,
+       hih = hi/h)
+
+poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
+
+coef_poli <- coef(poli5)
+
+dbh <- 25
+h <- 20
+di <- 5
+
+poly5_di(dbh, h, di, coef_poli)
+
+}
