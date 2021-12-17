@@ -2,6 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # timbeR
+<<<<<<< HEAD
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/brazilmaps)](https://CRAN.R-project.org/package=timbeR)
 
@@ -79,3 +80,9 @@ poly5_logs_plot(dbh, h, coef(poli5), assortments)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+=======
+R package for calculation of timber log volumes by assortment
+
+### Install dev version
+devtools::install_github('sergiocostafh/timbeR')
+>>>>>>> main
