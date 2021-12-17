@@ -78,4 +78,4 @@ position of the logs along the tree stem.
 poly5_logs_plot(dbh, h, coef(poli5), assortments)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" width="100%" />
