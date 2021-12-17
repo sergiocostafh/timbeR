@@ -69,7 +69,7 @@ poly5_logs(dbh, h, coef(poli5), assortments)
   
 Finally, we can generate the same result in a visual way, simulating the position of the logs along the tree stem.  
 
-```{r, fig.dim=c(12,8)}
+```{r, fig.dim=c(8,6), dpi = 300}
 poly5_logs_plot(dbh, h, coef(poli5), assortments)
 ```
 
