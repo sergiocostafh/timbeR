@@ -29,6 +29,7 @@ di ~ dbh * (log(sin((pi/2) * (hi/h)))/(log(sin((pi/2) * (1.3/h)))))^(b0 + b1 * s
 \examples{
 
 library(dplyr)
+library(minpack.lm)
 library(timbeR)
 
 tree_scaling <- tree_scaling \%>\%

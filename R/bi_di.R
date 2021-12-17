@@ -7,15 +7,16 @@
 #' @param hi height at which the diameter will be calculated, in meters.
 #' @param coef numerical vector containing seven coefficients of the Bi taper function.
 #'
+#' @return a numeric value indicating the diameter at the given height.
+#'
 #' @details the Bi variable-form taper function is represented mathematically by the following expression
 #'
 #' di ~ dbh * (log(sin((pi/2) * (hi/h)))/(log(sin((pi/2) * (1.3/h)))))^(b0 + b1 * sin((pi/2) * (hi/h)) + b2 * cos((3 * pi/2) * (hi/h)) + b3 * (sin((pi/2) * (hi/h))/(hi/h)) + b4 * dbh + b5 * (hi/h) * dbh^0.5 + b6 * (hi/h) * h^0.5)
 #'
-#' @return a numeric value indicating the diameter at the given height.
-#'
 #' @examples
 #'
 #' library(dplyr)
+#' library(minpack.lm)
 #' library(timbeR)
 #'
 #' tree_scaling <- tree_scaling %>%
