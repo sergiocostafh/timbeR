@@ -44,6 +44,7 @@ We will perform a regression analysis on the `tree_scaling` dataset, using the a
 
 ```{r}
 # install.packages("devtools")
+# options(download.file.method = "libcurl")
 # devtools::install_github('sergiocostafh/timbeR')
 
 library(dplyr)
@@ -66,11 +67,10 @@ tree_scaling <- tree_scaling %>%
 ggplot(tree_scaling, aes(x = hih, y = did, group = tree_id))+
   geom_point()+
   labs(x = 'hi / h',
-       y = 'di / dbh')+
-  theme(plot.title.position = 'plot')
+       y = 'di / dbh')
 ```
 
-Now that we understand the database, we can start the regression analysis. 
+Now that we understand the dataset, we can start the regression analysis. 
 The first model we will fit is the 5th degree polynomial.    
 ```{r}
 poli5 <- lm(did~hih+I(hih^2)+I(hih^3)+I(hih^4)+I(hih^5),tree_scaling)
@@ -213,9 +213,10 @@ Note that there is some variation between the predictions of the models. We can 
 hi <- seq(0.1,h,.1)
 
 ggplot(mapping=aes(x=hi))+
-  geom_line(aes(y=poly5_di(dbh, h, hi, coef_poli)))+
-  geom_line(aes(y=bi_di(dbh, h, hi, coef_bi)), linetype = 'dashed')+
-  geom_line(aes(y=kozak_di(dbh, h, hi, coef_kozak, p_kozak)), linetype = 'dotted')+
+  geom_line(aes(y=poly5_di(dbh, h, hi, coef_poli), linetype = '5th degree polynomial'))+
+  geom_line(aes(y=bi_di(dbh, h, hi, coef_bi), linetype = 'Bi (2000)'))+
+  geom_line(aes(y=kozak_di(dbh, h, hi, coef_kozak, p_kozak), linetype = 'Kozak (2004)'))+
+  scale_linetype_manual(name = 'Fitted models', values = c('solid','dashed','dotted'))+
   labs(x = 'hi (m)',
        y = 'Predicted di (cm)')
 
@@ -288,7 +289,7 @@ kozak_logs_plot(dbh, h, coef_kozak, p_kozak, assortments)
 
 ### Using `timbeR` functions at forest inventory scale  
 
-Log estimation functions are performed one tree at a time. Applying these functions to multiple trees can be performed in different ways. Below are some examples using the base R function `mapply` and using `pmap` function from `purrr` package.  
+Log estimation functions are performed one tree at a time. Applying these functions to multiple trees can be performed in different ways. Below are some examples using the base R function `mapply` and using `pmap` function from `purr` package.  
   
 ```{r}
 # Using mapply
@@ -313,11 +314,10 @@ assortment_vol <- mapply(
 
 
 assortment_vol
-```
-  
-The function returned the volumes for each of the trees. We can join the data through a simple binding between the `tree_data` and the output.  
 
-```{r}
+
+# Binding tree_data and volumes output
+
 library(tidyr)
 
 cbind(tree_data, assortment_vol) %>% 
@@ -338,6 +338,5 @@ tree_data %>%
   mutate(assortment_vol = pmap(.,poly5_logs)) %>% 
   select(dbh, h, assortment_vol) %>% 
   unnest(assortment_vol)
-
 ```
 
