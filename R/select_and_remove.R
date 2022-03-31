@@ -8,6 +8,16 @@
 #'
 #' @return the data.frame given to the `data` argument, without the selected points.
 #'
+#' @examples
+#'
+#' library(dplyr)
+#' library(timbeR)
+#'
+#' tree_scaling <- tree_scaling %>%
+#' mutate(did = di/dbh,
+#'        hih = hi/h) %>%
+#' select_and_remove(., 'hih', 'did')
+#'
 #' @export
 select_and_remove <- function(data, xvar, yvar) {
 

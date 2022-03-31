@@ -19,3 +19,14 @@ the data.frame given to the \code{data} argument, without the selected points.
 \description{
 Delete unwanted records from the dataset (e.g. outliers) by selecting them in a scatter plot.
 }
+\examples{
+
+library(dplyr)
+library(timbeR)
+
+tree_scaling <- tree_scaling \%>\%
+mutate(did = di/dbh,
+       hih = hi/h) \%>\%
+select_and_remove(., 'hih', 'did')
+
+}
