@@ -1,5 +1,5 @@
 Package: timbeR
-Title: Calculate Volumes from Taper Functions
+Title: Calculate Wood Volumes from Taper Functions
 Version: 2.0.0
 Authors@R: 
     person(given = "Sergio",
