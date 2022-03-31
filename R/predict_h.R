@@ -13,6 +13,9 @@
 #'
 #' @export
 predict_h <- function(data, model, transform, dbh_col) {
+
+  predict <- setNames <- y <- NULL
+
   if (dplyr::is.grouped_df(data)) {
     message('Ungrouping the data.')
     data <- data %>% dplyr::ungroup()

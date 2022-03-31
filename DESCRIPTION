@@ -1,5 +1,5 @@
 Package: timbeR
-Title: Calculate Volumes by Assortment in Forest Inventories
+Title: Calculate Volumes from Taper Functions
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Sergio",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            email = "sergio.vscf@gmail.com",
            comment = c(ORCID = "0000-0001-5432-317X"))
-Description: Functions for hypsometric modelling and estimation of volumes, number of logs, diameters along the stem and heights at which certain diameters occur, based on taper functions and other parameters.
+Description: Functions for estimation of wood volumes, number of logs, diameters along the stem and heights at which certain diameters occur, based on taper functions and other parameters.
 Depends: R(>= 3.3)
 Imports: 
     dplyr,

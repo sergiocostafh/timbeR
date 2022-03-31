@@ -59,6 +59,8 @@ poly5_logs <-
            total_volume,
            only_vol) {
 
+    Assortment <- SED <- NULL
+
     if(missing(only_vol)){
       only_vol <- FALSE
     }

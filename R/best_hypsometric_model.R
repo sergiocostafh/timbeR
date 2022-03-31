@@ -15,6 +15,8 @@
 #' @export
 best_hypsometric_model <- function(fit_hypsometric_list, criteria, model_name){
 
+  syx_perc <- name <- adj_r_squared <- score1 <- score2 <- score <- NULL
+
   if (missing(criteria))
     criteria <- 'syx'
 

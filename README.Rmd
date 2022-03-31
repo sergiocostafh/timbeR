@@ -9,6 +9,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
+  out.width = "100%",
   message = FALSE,
   warning = FALSE
 )
@@ -68,7 +69,7 @@ poly5_logs(dbh, h, coef(poli5), assortments)
   
 Finally, we can generate the same result in a visual way, simulating the position of the logs along the tree stem.  
 
-```{r example}
+```{r, fig.dim=c(8,6)}
 poly5_logs_plot(dbh, h, coef(poli5), assortments)
 ```
 

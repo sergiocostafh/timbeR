@@ -70,7 +70,7 @@ kozak_vol <- function(dbh, h, coef, p, hi, h0) {
 
 
   vkozak <- function(dbh, h, hi, h0, b0, b1, b2, b3, b4, b5, b6, b7, b8, p) {
-    integrate(fkozak, lower=h0, upper=hi,
+    stats::integrate(fkozak, lower=h0, upper=hi,
               dbh=dbh,
               h=h,
               b0=b0,b1=b1,b2=b2,b3=b3,b4=b4,b5=b5,b6=b6,b7=b7,b8=b8,p=p)$val

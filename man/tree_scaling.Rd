@@ -5,7 +5,14 @@
 \alias{tree_scaling}
 \title{Tree scaling example data}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 136 rows and 5 columns.
+A data frame with 136 rows and 5 variables:
+\describe{
+\item{tree_id}{tree unique id}
+\item{dbh}{diameter at breast height, in centimeters}
+\item{h}{total tree height, in meters}
+\item{hi}{tree section height, in meters}
+\item{di}{diameter at the tree section, in centimeters}
+}
 }
 \usage{
 data(tree_scaling)

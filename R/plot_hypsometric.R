@@ -9,6 +9,8 @@
 #' @export
 plot_hypsometric <- function(fit_hypsometric_list) {
 
+  name <- syx_perc <- adj_r_squared <- NULL
+
   df <- fit_hypsometric_list$obs_data
 
   y_name <- colnames(df)[1]

@@ -15,6 +15,7 @@
 #' @export
 fit_hypsometric <- function(data, h_col, dbh_col){
 
+  is.grouped_df <- formula <- lm <- setNames <- coef <- set_names <- NULL
 
   if(missing(dbh_col)){
     stop('Missing argument: `dbh_col`')
@@ -115,8 +116,8 @@ fit_hypsometric <- function(data, h_col, dbh_col){
 
       formula <- f.hypso
 
-      curve_dbh <- set_names(list(seq(min(round(dbh,1), na.rm = T),max(round(dbh,1), na.rm = T),.1)), dbh_col)
-      curve_h <- setNames(list(timbeR::predict_h(curve_dbh,model,transform, dbh_col)), h_col)
+      curve_dbh <- stats::setNames(list(seq(min(round(dbh,1), na.rm = T),max(round(dbh,1), na.rm = T),.1)), dbh_col)
+      curve_h <- stats::setNames(list(timbeR::predict_h(curve_dbh,model,transform, dbh_col)), h_col)
       curve <- dplyr::bind_cols(curve_dbh, curve_h) %>%
         dplyr::mutate(name = name)
 

@@ -63,7 +63,7 @@ bi_vol <- function(dbh, h, coef, hi, h0) {
 
 
   vbi <- function(dbh, h, hi, h0, b0, b1, b2, b3, b4, b5, b6) {
-    integrate(fbi, lower=h0, upper=hi,
+    stats::integrate(fbi, lower=h0, upper=hi,
               dbh=dbh,
               h=h,
               b0=b0,b1=b1,b2=b2,b3=b3,b4=b4,b5=b5,b6=b6)$val

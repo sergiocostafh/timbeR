@@ -56,6 +56,8 @@
 #' @export
 kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrade, broken, defect_height, lang) {
 
+  hi <- di <- ri_left <- ri_right <- section <- . <- desc_pos_y <- desc_pos_x <- description <- fontsize <- NULL
+
   if (missing(lang)) {
     lang <- 'eng'
     message("Plot labels will be in english. Supported languages are 'en' and 'pt-BR'. See the `lang` argument.")
