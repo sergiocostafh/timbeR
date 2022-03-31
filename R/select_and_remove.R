@@ -10,6 +10,7 @@
 #'
 #' @examples
 #'
+#' \dontrun{
 #' library(dplyr)
 #' library(timbeR)
 #'
@@ -17,6 +18,7 @@
 #' mutate(did = di/dbh,
 #'        hih = hi/h) %>%
 #' select_and_remove(., 'hih', 'did')
+#' }
 #'
 #' @export
 select_and_remove <- function(data, xvar, yvar) {

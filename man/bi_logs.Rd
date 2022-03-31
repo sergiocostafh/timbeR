@@ -2,7 +2,7 @@
 % Please edit documentation in R/bi_logs.R
 \name{bi_logs}
 \alias{bi_logs}
-\title{Simulate log extraction using a Bi variable-form taper equation that describes the taper of the tree.}
+\title{Simulate log extraction using a Bi (2000) variable-form taper equation that describes the taper of the tree.}
 \usage{
 bi_logs(
   dbh,
@@ -45,7 +45,7 @@ bi_logs(
 a list of two data.frames, the first (volumes) with the calculated volumes per assortment, and the second (logs) with the number of logs per assortment.
 }
 \description{
-Simulate the extraction of logs from a tree from its measurements, taper function (Bi variable-form taper equation ), trunk quality characteristics and harvest parameters such as stump height and assortments.
+Simulate the extraction of logs from a tree from its measurements, taper function (Bi (2000) variable-form taper equation ), trunk quality characteristics and harvest parameters such as stump height and assortments.
 }
 \details{
 when the \code{broken} and \code{downgrade} arguments are set to TRUE, the \code{defect_height} value is considered as the break height of the tree, and the entire tree is downgraded.
@@ -60,9 +60,7 @@ tree_scaling <- tree_scaling \%>\%
 mutate(did = di/dbh,
        hih = hi/h)
 
-bi <-  nlsLM(di ~ dbh*(log(sin((pi/2)*(hih)))/(log(sin((pi/2)*(1.3/h)))))**
-(b0+b1*sin((pi/2)*(hih))+b2*cos((3*pi/2)*(hih))+b3*(sin((pi/2)*(hih))/(hih))+
-  b4*dbh+b5*(hih)*dbh**0.5+b6*(hih)*h**0.5),
+bi <-  nlsLM(di ~ taper_bi(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6),
 data=tree_scaling,
 start=list(b0=1.8,b1=-0.2,b2=-0.04,b3=-0.9,b4=-0.0006,b5=0.07,b6=-.14))
 

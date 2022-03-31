@@ -2,7 +2,7 @@
 % Please edit documentation in R/bi_logs_plot.R
 \name{bi_logs_plot}
 \alias{bi_logs_plot}
-\title{Visualize the simulation of log cutting along the stem using a Bi variable-form taper equation.}
+\title{Visualize the simulation of log cutting along the stem using a Bi (2000) variable-form taper equation.}
 \usage{
 bi_logs_plot(
   dbh,
@@ -39,7 +39,7 @@ bi_logs_plot(
 a ggplot object.
 }
 \description{
-Plot the shape of the tree and visualize the extracted logs based on the tree measurements, assortments data.frame, and the Bi variable-form taper equation.
+Plot the shape of the tree and visualize the extracted logs based on the tree measurements, assortments data.frame, and the Bi (2000) variable-form taper equation.
 }
 \details{
 check the \code{bi_logs} function help for more details.
@@ -54,9 +54,7 @@ tree_scaling <- tree_scaling \%>\%
 mutate(did = di/dbh,
        hih = hi/h)
 
-bi <-  nlsLM(di ~ dbh*(log(sin((pi/2)*(hih)))/(log(sin((pi/2)*(1.3/h)))))**
-(b0+b1*sin((pi/2)*(hih))+b2*cos((3*pi/2)*(hih))+b3*(sin((pi/2)*(hih))/(hih))+
-  b4*dbh+b5*(hih)*dbh**0.5+b6*(hih)*h**0.5),
+bi <-  nlsLM(di ~ taper_bi(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6),
 data=tree_scaling,
 start=list(b0=1.8,b1=-0.2,b2=-0.04,b3=-0.9,b4=-0.0006,b5=0.07,b6=-.14))
 

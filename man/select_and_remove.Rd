@@ -21,6 +21,7 @@ Delete unwanted records from the dataset (e.g. outliers) by selecting them in a 
 }
 \examples{
 
+\dontrun{
 library(dplyr)
 library(timbeR)
 
@@ -28,5 +29,6 @@ tree_scaling <- tree_scaling \%>\%
 mutate(did = di/dbh,
        hih = hi/h) \%>\%
 select_and_remove(., 'hih', 'did')
+}
 
 }
