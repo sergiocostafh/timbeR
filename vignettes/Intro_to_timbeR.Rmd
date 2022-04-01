@@ -316,7 +316,7 @@ assortment_vol <- mapply(
 assortment_vol
 
 
-# Binding tree_data and volumes output
+# Bindind tree_data and volumes output
 
 library(tidyr)
 
