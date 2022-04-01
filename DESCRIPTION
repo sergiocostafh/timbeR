@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            email = "sergio.vscf@gmail.com",
            comment = c(ORCID = "0000-0001-5432-317X"))
-Description: Functions for estimation of wood volumes, number of logs, diameters along the stem and heights at which certain diameters occur, based on taper functions and other parameters. References: McTague, J. P., & Weiskittel, A. (2021). <doi:10.1139/cjfr-2020-0326>
+Description: Functions for estimation of wood volumes, number of logs, diameters along the stem and heights at which certain diameters occur, based on taper functions and other parameters. References: McTague, J. P., & Weiskittel, A. (2021). <doi:10.1139/cjfr-2020-0326>.
 Depends: R(>= 3.3)
 Imports: 
     dplyr,
