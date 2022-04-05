@@ -3,7 +3,7 @@
 
 # timbeR
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/brazilmaps)](https://CRAN.R-project.org/package=timbeR)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/timbeR)](https://CRAN.R-project.org/package=timbeR)
 
 The goal of timbeR is to provide functions for estimating log volumes
 and quantities from taper functions in the processing of forest
@@ -11,7 +11,13 @@ inventories.
 
 ## Installation
 
-You can install the development version from
+You can install the CRAN version of the package as follows:
+
+``` r
+install.packages("timbeR")
+```
+
+You can also install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -78,4 +84,4 @@ position of the logs along the tree stem.
 poly5_logs_plot(dbh, h, coef(poli5), assortments)
 ```
 
-![](man/figures/README-example-1.png)<!-- -->
+<img src="man/figures/README-example-1.png" width="100%" />
