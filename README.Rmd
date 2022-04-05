@@ -17,13 +17,19 @@ knitr::opts_chunk$set(
 
 # timbeR
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/brazilmaps)](https://CRAN.R-project.org/package=timbeR)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/timbeR)](https://CRAN.R-project.org/package=timbeR)
 
 The goal of timbeR is to provide functions for estimating log volumes and quantities from taper functions in the processing of forest inventories.  
 
 ## Installation
 
-You can install the development version from [GitHub](https://github.com/) with:
+You can install the CRAN version of the package as follows:
+
+```{R eval = FALSE}
+install.packages("timbeR")
+```  
+
+You can also install the development version from [GitHub](https://github.com/) with:
 
 ```{R eval = FALSE}
 # install.packages("devtools")
