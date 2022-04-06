@@ -16,7 +16,6 @@ Imports:
     tidyr,
     tibble,
     magrittr,
-    lazyeval,
     miniUI,
     shiny
 License: MIT + file LICENSE

@@ -24,11 +24,11 @@ The possible models to be used are:
 $$\frac{d_i}{dbh}=\beta_0\frac{h_i}{h}+\beta_1\left(\frac{h_i}{h}\right)^2+\beta_2\left(\frac{h_i}{h}\right)^3+\beta_3\left(\frac{h_i}{h}\right)^4+\beta_4\left(\frac{h_i}{h}\right)^5$$
   
 - Kozak (2004) variable-form taper model
-$$d_i = \beta_0dap^{\beta_1}\left[\frac{1-\left(\frac{h_i}{ht}\right)^{1/4}}{1-p^{1/4}}\right]^{\beta_2+\beta_3\left(\frac{1}{e^{dap/ht}}\right)+\beta_4dap^{\left[\frac{1-\left(\frac{h_i}{ht}\right)^{1/4}}{1-p^{1/4}}\right]}+\beta_5\left[\frac{1-\left(\frac{h_i}{ht}\right)^{1/4}}{1-p^{1/4}}\right]^{dap/ht}}$$
+$$d_i = \beta_0dbh^{\beta_1}\left[\frac{1-\left(\frac{h_i}{ht}\right)^{1/4}}{1-p^{1/4}}\right]^{\beta_2+\beta_3\left(\frac{1}{e^{dbh/ht}}\right)+\beta_4dbh^{\left[\frac{1-\left(\frac{h_i}{ht}\right)^{1/4}}{1-p^{1/4}}\right]}+\beta_5\left[\frac{1-\left(\frac{h_i}{ht}\right)^{1/4}}{1-p^{1/4}}\right]^{dbh/ht}}$$
   
 - Bi (2000) trigonometric variable-form taper model
-$$d_i=dap\left[ \left( \frac{log\;sin \left( \frac{\pi}{2} \frac{h_i}{ht} \right)}
-{log\;sin \left( \frac{\pi}{2} \frac{1,3}{ht} \right)} \right) ^{\beta_0+\beta_1sin\left(\frac{\pi}{2}\frac{h_i}{ht}\right)+\beta_2cos\left(\frac{3\pi}{2}\frac{h_i}{ht}\right)+\beta_3sin\left(\frac{\pi}{2}\frac{h_i}{ht}\right)/\frac{h_i}{ht}+\beta_4dap+\beta_5\frac{h_i}{ht}\sqrt{dap}+\beta_6\frac{h_i}{ht}\sqrt{ht}}
+$$d_i=dbh\left[ \left( \frac{log\;sin \left( \frac{\pi}{2} \frac{h_i}{ht} \right)}
+{log\;sin \left( \frac{\pi}{2} \frac{1,3}{ht} \right)} \right) ^{\beta_0+\beta_1sin\left(\frac{\pi}{2}\frac{h_i}{ht}\right)+\beta_2cos\left(\frac{3\pi}{2}\frac{h_i}{ht}\right)+\beta_3sin\left(\frac{\pi}{2}\frac{h_i}{ht}\right)/\frac{h_i}{ht}+\beta_4dbh+\beta_5\frac{h_i}{ht}\sqrt{dbh}+\beta_6\frac{h_i}{ht}\sqrt{ht}}
 \right]$$
   
 where:  
