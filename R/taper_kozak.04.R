@@ -21,12 +21,12 @@
 #' mutate(did = di/dbh,
 #'        hih = hi/h)
 #'
-#' kozak <-  nlsLM(di ~ taper_kozak(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
+#' kozak.04 <-  nlsLM(di ~ taper_kozak.04(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
 #' data=tree_scaling,
 #' start=list(b0=1.00,b1=.97,b2=.03,b3=.49,b4=-0.87,b5=0.50,b6=3.88,b7=0.03,b8=-0.19,p =.1))
 #'
 #' @export
-taper_kozak <- function(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p){
+taper_kozak.04 <- function(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p){
   b0*(dbh**b1)*(h**b2)*((1-hih**(1/4))/(1-(p^(1/3))))**(b3*hih**4+b4*(1/exp(dbh/h))+b5*((1-hih**(1/4))/(1-(p^(1/3))))**0.1+b6*
                                                           (1/dbh)+b7*(h**(1-
                                                                             hih**(1/3)))+b8*((1-hih**(1/4))/(1-(p^(1/3)))))

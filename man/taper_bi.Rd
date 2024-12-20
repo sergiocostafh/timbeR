@@ -2,7 +2,7 @@
 % Please edit documentation in R/taper_bi.R
 \name{taper_bi}
 \alias{taper_bi}
-\title{Bi (2004) Taper Function.}
+\title{Bi (2000) Taper Function.}
 \usage{
 taper_bi(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6)
 }
@@ -19,7 +19,7 @@ taper_bi(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6)
 a numeric value indicating the diameter at the section.
 }
 \description{
-Bi (2004) Taper Function.
+Bi (2000) Taper Function.
 }
 \examples{
 

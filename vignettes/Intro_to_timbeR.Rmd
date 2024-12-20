@@ -66,8 +66,8 @@ tree_scaling <- tree_scaling %>%
 
 ggplot(tree_scaling, aes(x = hih, y = did, group = tree_id))+
   geom_point()+
-  labs(x = 'hi / h',
-       y = 'di / dbh')
+  labs(x = 'hi/h',
+       y = 'di/dbh')
 ```
 
 Now that we understand the dataset, we can start the regression analysis. 
@@ -130,31 +130,31 @@ ggplot(tree_scaling,aes(x=hih))+
   
 The Bi model performed better than the polynomial function, based on the RMSE value. However, we still have heteroscedasticity in the residues. Let's see what we get by adjusting the Kozak (2004) model. We will treat the `p` parameter of this model as one more to be estimated using the `nlsLM` function.  
 ```{r}
-kozak <- nlsLM(di ~ taper_kozak(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
+kozak.04 <- nlsLM(di ~ taper_kozak.04(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
                start=list(b0=1.00,b1=.97,b2=.03,b3=.49,b4=-
                             0.87,b5=0.50,b6=3.88,b7=0.03,b8=-0.19, p = .1),
                data = tree_scaling,
                control = nls.lm.control(maxiter = 1000, maxfev = 2000)
 )
-summary(kozak)
+summary(kozak.04)
 
 tree_scaling <- tree_scaling %>% 
-  mutate(di_kozak = predict(kozak))
+  mutate(di_kozak.04 = predict(kozak.04))
 
-kozak_rmse <- tree_scaling %>% 
-  summarise(RMSE = sqrt(sum((di_kozak-di)^2)/mean(di_kozak))) %>% 
+kozak.04_rmse <- tree_scaling %>% 
+  summarise(RMSE = sqrt(sum((di_kozak.04-di)^2)/mean(di_kozak.04))) %>% 
   pull(RMSE) %>% 
   round(2)
 
 ggplot(tree_scaling, aes(x=hih))+
-  geom_point(aes(y = (di_kozak-di)/di_kozak*100))+
+  geom_point(aes(y = (di_kozak.04-di)/di_kozak.04*100))+
   geom_hline(aes(yintercept = 0))+
   scale_y_continuous(limits=c(-100,100), breaks = seq(-100,100,20))+
   scale_x_continuous(limits=c(0,1))+
   labs(x = 'hi / h', y = 'Residuals (%)',
        title = 'Kozak (2004) variable-form taper function',
        subtitle = 'Dispersion of residuals along the stem',
-       caption = paste0('Root Mean Squared Error = ', kozak_rmse,'%'))+
+       caption = paste0('Root Mean Squared Error = ', kozak.04_rmse,'%'))+
   theme(plot.title.position = 'plot')
 
 ```
@@ -168,11 +168,11 @@ The following table presents the auxiliary functions for the three supported mod
 
 | Usage                                                | 5° degree polynomial | Bi (2002)      | Kozak (2004)      |   |
 |------------------------------------------------------|:--------------------:|:--------------:|:-----------------:|
-| Estimate the diameter at a given height              |      `poly5_di`      |     `bi_di`    |     `kozak_di`    |
-| Estimate the height at which a given diameter occurs |      `poly5_hi`      |     `bi_hi`    |     `kozak_hi`    |
-| Estimate the total or partial volume of the stem     |      `poly5_vol`     |    `bi_vol`    |    `kozak_vol`    |
-| Estimate volume and quantity of logs per assortment  |     `poly5_logs`     |    `bi_logs`   |    `kozak_logs`   |
-| Visualize the simulation of log cutting along the stem|   `poly5_logs_plot`  | `bi_logs_plot` | `kozak_logs_plot` |  
+| Estimate the diameter at a given height              |      `poly5_di`      |     `bi_di`    |     `kozak.04_di`    |
+| Estimate the height at which a given diameter occurs |      `poly5_hi`      |     `bi_hi`    |     `kozak.04_hi`    |
+| Estimate the total or partial volume of the stem     |      `poly5_vol`     |    `bi_vol`    |    `kozak.04_vol`    |
+| Estimate volume and quantity of logs per assortment  |     `poly5_logs`     |    `bi_logs`   |    `kozak.04_logs`   |
+| Visualize the simulation of log cutting along the stem|   `poly5_logs_plot`  | `bi_logs_plot` | `kozak.04_logs_plot` |  
   
   
 Next, we will apply the functions described in the table using the models fitted in the previous section.  For ease of understanding, let's start by applying the functions to a single tree. Let's define it's total height and DBH measurements.  
@@ -188,8 +188,8 @@ All auxiliary functions have the argument `coef`, where a vector containing the 
 ```{r}
 coef_poli <- coef(poli5)
 coef_bi <- coef(bi)
-coef_kozak <- coef(kozak)[-10]
-p_kozak <- coef(kozak)[10]
+coef_kozak.04 <- coef(kozak.04)[-10]
+p_kozak.04 <- coef(kozak.04)[10]
 ```
   
 Now we can estimate the diameter (`di`) at a given height (`hi`). Let's assume `hi = 15` for this example.  
@@ -199,7 +199,7 @@ hi <- 15
 
 poly5_di(dbh, h, hi, coef_poli)
 bi_di(dbh, h, hi, coef_bi)
-kozak_di(dbh, h, hi, coef_kozak, p = p_kozak)
+kozak.04_di(dbh, h, hi, coef_kozak.04, p = p_kozak.04)
 
 ```
 Note that there is some variation between the predictions of the models. We can better observe this effect by modeling the complete profile of our example tree.
@@ -210,7 +210,7 @@ hi <- seq(0.1,h,.1)
 ggplot(mapping=aes(x=hi))+
   geom_line(aes(y=poly5_di(dbh, h, hi, coef_poli), linetype = '5th degree polynomial'))+
   geom_line(aes(y=bi_di(dbh, h, hi, coef_bi), linetype = 'Bi (2000)'))+
-  geom_line(aes(y=kozak_di(dbh, h, hi, coef_kozak, p_kozak), linetype = 'Kozak (2004)'))+
+  geom_line(aes(y=kozak.04_di(dbh, h, hi, coef_kozak.04, p_kozak.04), linetype = 'Kozak (2004)'))+
   scale_linetype_manual(name = 'Fitted models', values = c('solid','dashed','dotted'))+
   labs(x = 'hi (m)',
        y = 'Predicted di (cm)')
@@ -223,7 +223,7 @@ di <- 10
 
 poly5_hi(dbh, h, di, coef_poli)
 bi_hi(dbh, h, di, coef_bi)
-kozak_hi(dbh, h, di, coef_kozak, p_kozak)
+kozak.04_hi(dbh, h, di, coef_kozak.04, p_kozak.04)
 ```
 
 For this example the application of the three models resulted in very similar predictions.  
@@ -232,7 +232,7 @@ The functions for estimating total and partial volumes are similar to those pres
 ```{r}
 poly5_vol(dbh, h, coef_poli)
 bi_vol(dbh, h, coef_bi)
-kozak_vol(dbh, h, coef_kozak, p_kozak)
+kozak.04_vol(dbh, h, coef_kozak.04, p_kozak.04)
 ```
 
 We can also estimate partial volumes by declaring the initial height `h0` and the final height `hi`.  
@@ -243,7 +243,7 @@ h0 = .2
 
 poly5_vol(dbh, h, coef_poli, hi, h0)
 bi_vol(dbh, h, coef_bi, hi, h0)
-kozak_vol(dbh, h, coef_kozak, p_kozak, hi, h0)
+kozak.04_vol(dbh, h, coef_kozak.04, p_kozak.04, hi, h0)
 ```
 
 Finally, we will see how the three models estimate the volume and quantity of logs from different wood products. We start by defining the assortments.  
@@ -269,7 +269,7 @@ We can now estimate volume and quantity of wood products in a tree stem.
 ```{r}
 poly5_logs(dbh, h, coef_poli, assortments)
 bi_logs(dbh, h, coef_bi, assortments)
-kozak_logs(dbh, h, coef_kozak, p_kozak, assortments)
+kozak.04_logs(dbh, h, coef_kozak.04, p_kozak.04, assortments)
 ```
   
 There are several additional arguments in the log volume/quantity estimation functions that change the way the calculations are performed. It is highly recommended that you read the function's help to understand all its functionality.  
@@ -279,7 +279,7 @@ An additional feature of the `timbeR` package is the possibility to visualize ho
 ```{r}
 poly5_logs_plot(dbh, h, coef_poli, assortments)
 bi_logs_plot(dbh, h, coef_bi, assortments)
-kozak_logs_plot(dbh, h, coef_kozak, p_kozak, assortments)
+kozak.04_logs_plot(dbh, h, coef_kozak.04, p_kozak.04, assortments)
 ```
 
 ### Using `timbeR` functions at forest inventory scale  

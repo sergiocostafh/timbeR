@@ -1,10 +1,11 @@
-#' Simulate log cutting using a Bi (2000) variable-form taper equation that describes the taper of the tree.
+#' Simulate log cutting using a Kozak (1994) variable-form taper equation that describes the taper of the tree.
 #'
-#' Simulate the cutting of logs from a tree from its measurements, taper function (Bi (2000) variable-form taper equation ), trunk quality characteristics and harvest parameters such as stump height and assortments.
+#' Simulate the cutting of logs from a tree from its measurements, taper function (Kozak (1994) variable-form taper equation ), trunk quality characteristics and harvest parameters such as stump height and assortments.
 #'
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.
-#' @param coef numerical vector containing seven coefficients of the Bi taper equation.
+#' @param coef numerical vector containing nine coefficients of the Kozak (1994) taper function.
+#' @param p numerical value representing the first inflection point calculated in the segmented model of Max and Burkhart (1976).
 #' @param assortments a data.frame with five columns and n rows, where n is the number of different wood assortments to be obtained from the tree stem. The first column must contain the names of the assortments, the second, numerical, contains the minimum diameters at the small end of the logs, in centimeters. The third column, numerical, contains the minimum lengths of the logs, in meters. The fourth column, numerical, contains the maximum lengths of the logs, in meters. The fifth column, numerical, contains the values in centimeters referring to the loss of wood due to cutting logs. The algorithm prioritizes the extraction of assortments along the stem in the order presented in the data.frame, starting from the first line, to the last.
 #' @param stump_height tree cutting height, in meters. Default is 0.
 #' @param downgrade if TRUE, the algorithm,from the defect_height onwards, simulates log extraction only for the last assortment in the assortments data.frame. Default is FALSE.
@@ -28,11 +29,12 @@
 #' mutate(did = di/dbh,
 #'        hih = hi/h)
 #'
-#' bi <-  nlsLM(di ~ taper_bi(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6),
+#' kozak.94 <-  nlsLM(di ~ taper_kozak.94(dbh, h, hi, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p),
 #' data=tree_scaling,
-#' start=list(b0=1.8,b1=-0.2,b2=-0.04,b3=-0.9,b4=-0.0006,b5=0.07,b6=-.14))
+#' start=list(b0=1.5,b1=1.5,b2=1,b3=-10,b4=50,b5=-10,b6=34,b7=10,b8=-1,b9=-0.01, p = .1))
 #'
-#' coef_bi <- coef(bi)
+#' coef_kozak.94 <- coef(kozak.94)[-11]
+#' p_kozak.94 <- coef(kozak.94)[11]
 #'
 #' dbh <- 25
 #' h <- 20
@@ -45,13 +47,14 @@
 #'   LOSS = c(5,5)
 #' )
 #'
-#' bi_logs(dbh, h, coef_bi, assortments)
+#' kozak.94_logs(dbh, h, coef_kozak.94, p_kozak.94, assortments)
 #'
 #' @export
-bi_logs <-
+kozak.94_logs <-
   function(dbh,
            h,
            coef,
+           p,
            assortments,
            stump_height,
            downgrade,
@@ -147,7 +150,7 @@ bi_logs <-
         cminsort <- assortments[[i, 3]]
         cmaxsort <- assortments[[i, 4]]
         psort <- assortments[[i, 4]]/100
-        harv_dsort <- timbeR::bi_hi(dbh, h, dsort, coef)
+        harv_dsort <- timbeR::kozak.94_hi(dbh, h, dsort, coef, p)
         if ((downgrade & !broken & i < nrow(assortments)) &
             harv_dsort > defect_height) {
           harv_dsort <- defect_height
@@ -174,7 +177,7 @@ bi_logs <-
           csort <- ifelse(h0 <= harv_dsort - cmaxsort, cmaxsort, harv_dsort-h0)
 
           h0 <- h0 + csort + psort
-          vsort <- vsort + timbeR::bi_vol(dbh, h, coef, h0 - psort, h0 - (psort + csort))
+          vsort <- vsort + timbeR::kozak.94_vol(dbh, h, coef, p, h0 - psort, h0 - (psort + csort))
         }
         tab_sort[1, i] <- vsort
         tab_sort_n[1, i] <- nlogs
@@ -182,8 +185,8 @@ bi_logs <-
 
       if (total_volume) {
         tab_sort <- tab_sort %>% tibble::add_column(Total = ifelse(broken,
-                                                                   timbeR::bi_vol(dbh, h, coef, break_height),
-                                                                   timbeR::bi_vol(dbh, h, coef, h)))
+                                                                   timbeR::kozak.94_vol(dbh, h, coef, p, break_height),
+                                                                   timbeR::kozak.94_vol(dbh, h, coef, p, h)))
       }
     }
 
@@ -192,7 +195,7 @@ bi_logs <-
     }
     else{
       return(list(volumes = tab_sort,
-                logs = tab_sort_n))
+                  logs = tab_sort_n))
     }
   }
 

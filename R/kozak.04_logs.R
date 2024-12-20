@@ -1,6 +1,6 @@
-#' Simulate log extraction using a Kozak (2004) variable-form taper equation that describes the taper of the tree.
+#' Simulate log cutting using a Kozak (2004) variable-form taper equation that describes the taper of the tree.
 #'
-#' Simulate the extraction of logs from a tree from its measurements, taper function (Kozak (2004) variable-form taper equation ), trunk quality characteristics and harvest parameters such as stump height and assortments.
+#' Simulate the cutting of logs from a tree from its measurements, taper function (Kozak (2004) variable-form taper equation ), trunk quality characteristics and harvest parameters such as stump height and assortments.
 #'
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.
@@ -29,15 +29,15 @@
 #' mutate(did = di/dbh,
 #'        hih = hi/h)
 #'
-#' kozak <- nlsLM(di ~ taper_kozak(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
+#' kozak.04 <- nlsLM(di ~ taper_kozak.04(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
 #'                start=list(b0=1.00,b1=.97,b2=.03,b3=.49,b4=-
 #'                             0.87,b5=0.50,b6=3.88,b7=0.03,b8=-0.19, p = .1),
 #'                data = tree_scaling,
 #'                control = nls.lm.control(maxiter = 1000, maxfev = 2000)
 #' )
 #'
-#' coef_kozak <- coef(kozak)[-10]
-#' p_kozak <- coef(kozak)[10]
+#' coef_kozak.04 <- coef(kozak.04)[-10]
+#' p_kozak.04 <- coef(kozak.04)[10]
 #'
 #' h <- 20
 #' dbh <- 25
@@ -50,10 +50,10 @@
 #'   LOSS = c(5,5)
 #' )
 #'
-#' kozak_logs(dbh, h, coef_kozak, p_kozak, assortments)
+#' kozak.04_logs(dbh, h, coef_kozak.04, p_kozak.04, assortments)
 #'
 #' @export
-kozak_logs <-
+kozak.04_logs <-
   function(dbh,
            h,
            coef,
@@ -153,7 +153,7 @@ kozak_logs <-
         cminsort <- assortments[[i, 3]]
         cmaxsort <- assortments[[i, 4]]
         psort <- assortments[[i, 4]]/100
-        harv_dsort <- timbeR::kozak_hi(dbh, h, dsort, coef, p)
+        harv_dsort <- timbeR::kozak.04_hi(dbh, h, dsort, coef, p)
         if ((downgrade & !broken & i < nrow(assortments)) &
             harv_dsort > defect_height) {
           harv_dsort <- defect_height
@@ -180,7 +180,7 @@ kozak_logs <-
           csort <- ifelse(h0 <= harv_dsort - cmaxsort, cmaxsort, harv_dsort-h0)
 
           h0 <- h0 + csort + psort
-          vsort <- vsort + timbeR::kozak_vol(dbh, h, coef, p, h0 - psort, h0 - (psort + csort))
+          vsort <- vsort + timbeR::kozak.04_vol(dbh, h, coef, p, h0 - psort, h0 - (psort + csort))
         }
         tab_sort[1, i] <- vsort
         tab_sort_n[1, i] <- nlogs
@@ -188,8 +188,8 @@ kozak_logs <-
 
       if (total_volume) {
         tab_sort <- tab_sort %>% tibble::add_column(Total = ifelse(broken,
-                                                                   timbeR::kozak_vol(dbh, h, coef, p, break_height),
-                                                                   timbeR::kozak_vol(dbh, h, coef, p, h)))
+                                                                   timbeR::kozak.04_vol(dbh, h, coef, p, break_height),
+                                                                   timbeR::kozak.04_vol(dbh, h, coef, p, h)))
       }
     }
 

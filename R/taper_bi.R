@@ -1,4 +1,4 @@
-#' Bi (2004) Taper Function.
+#' Bi (2000) Taper Function.
 #'
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.

@@ -15,7 +15,7 @@
 #'
 #' @return a ggplot object.
 #'
-#' @details check the `kozak_logs` function help for more details.
+#' @details check the `kozak.04_logs` function help for more details.
 #'
 #' @examples
 #'
@@ -27,15 +27,15 @@
 #' mutate(did = di/dbh,
 #'        hih = hi/h)
 #'
-#' kozak <- nlsLM(di ~ taper_kozak(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
+#' kozak.04 <- nlsLM(di ~ taper_kozak.04(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, p),
 #'                start=list(b0=1.00,b1=.97,b2=.03,b3=.49,b4=-
 #'                             0.87,b5=0.50,b6=3.88,b7=0.03,b8=-0.19, p = .1),
 #'                data = tree_scaling,
 #'                control = nls.lm.control(maxiter = 1000, maxfev = 2000)
 #' )
 #'
-#' coef_kozak <- coef(kozak)[-10]
-#' p_kozak <- coef(kozak)[10]
+#' coef_kozak.04 <- coef(kozak.04)[-10]
+#' p_kozak.04 <- coef(kozak.04)[10]
 #'
 #' h <- 20
 #' dbh <- 25
@@ -48,10 +48,10 @@
 #'   LOSS = c(5,5)
 #' )
 #'
-#' kozak_logs(dbh, h, coef_kozak, p_kozak, assortments)
+#' kozak.04_logs(dbh, h, coef_kozak.04, p_kozak.04, assortments)
 #'
 #' @export
-kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrade, broken, defect_height, lang) {
+kozak.04_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrade, broken, defect_height, lang) {
 
   hi <- di <- ri_left <- ri_right <- section <- . <- desc_pos_y <- desc_pos_x <- description <- fontsize <- NULL
 
@@ -71,7 +71,7 @@ kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrad
 
   suppressMessages(
     nlogs <-
-      timbeR::kozak_logs(dbh, h, coef, p, assortments, stump_height, downgrade, broken, defect_height, F)
+      timbeR::kozak.04_logs(dbh, h, coef, p, assortments, stump_height, downgrade, broken, defect_height, F)
   )
 
   if(!missing(defect_height) & !downgrade & !broken){
@@ -135,7 +135,7 @@ kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrad
     dplyr::mutate(Nlogs = as.vector(t(nlogs$logs)))
 
   tree <- tibble::tibble(hi = seq(0, ifelse(broken,break_height,h), 0.01),
-                         di = timbeR::kozak_di(dbh, h, seq(0, ifelse(broken,break_height,h), 0.01), coef, p))
+                         di = timbeR::kozak.04_di(dbh, h, seq(0, ifelse(broken,break_height,h), 0.01), coef, p))
 
 
   tree_sections <- tibble::tibble(hi = stump_height, description = paste0(stump_label,' (',stump_height*100,'cm)'))
@@ -143,7 +143,7 @@ kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrad
   for (i in 1:nrow(nlogs_assortments)) {
     sort <- nlogs_assortments[i, ]
     if (sort$Nlogs > 0) {
-      hi_dpf <- kozak_hi(dbh, h, sort[[2]], coef, p)
+      hi_dpf <- kozak.04_hi(dbh, h, sort[[2]], coef, p)
       for (j in 1:sort$Nlogs) {
         h0 <- tree_sections %>% dplyr::slice_tail(n = 1) %>% dplyr::pull(hi)
         tree_sections <- tree_sections %>%
@@ -169,11 +169,11 @@ kozak_logs_plot <- function(dbh, h, coef, p, assortments, stump_height, downgrad
     dplyr::mutate(
       desc_pos_y = dplyr::case_when(grepl(stump_label, description)~ifelse(hi>0,0.3,NA_real_),
                                     TRUE~(hi + dplyr::lag(hi, 1)) / 2)) %>%
-    dplyr::mutate(desc_pos_x = dplyr::case_when(grepl(paste0(loss_label,'|',tip_label,'|',stump_label), description) ~ - timbeR::kozak_di(dbh,h,desc_pos_y,coef, p),
-                                                TRUE ~ timbeR::kozak_di(dbh,h,desc_pos_y,coef, p)),
+    dplyr::mutate(desc_pos_x = dplyr::case_when(grepl(paste0(loss_label,'|',tip_label,'|',stump_label), description) ~ - timbeR::kozak.04_di(dbh,h,desc_pos_y,coef, p),
+                                                TRUE ~ timbeR::kozak.04_di(dbh,h,desc_pos_y,coef, p)),
                   fontsize = dplyr::case_when(grepl(paste0(loss_label,'|',tip_label,'|',stump_label), description) ~ 3,
                                               TRUE ~ 4),
-                  section = timbeR::kozak_di(dbh,h,hi,coef,p))
+                  section = timbeR::kozak.04_di(dbh,h,hi,coef,p))
 
   tree %>%
     dplyr::mutate(ri_right = di / 2,

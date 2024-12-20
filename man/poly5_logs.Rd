@@ -2,7 +2,7 @@
 % Please edit documentation in R/poly5_logs.R
 \name{poly5_logs}
 \alias{poly5_logs}
-\title{Simulate log extraction using a 5th degree polynomial that describes the taper of the tree.}
+\title{Simulate log cutting using a 5th degree polynomial that describes the taper of the tree.}
 \usage{
 poly5_logs(
   dbh,
@@ -45,7 +45,7 @@ poly5_logs(
 a list of two data.frames, the first (volumes) with the calculated volumes per assortment, and the second (logs) with the number of logs per assortment.
 }
 \description{
-Simulate the extraction of logs from a tree from its measurements, taper function (5th degree polynomial), trunk quality characteristics and harvest parameters such as stump height and assortments.
+Simulate the cutting of logs from a tree from its measurements, taper function (5th degree polynomial), trunk quality characteristics and harvest parameters such as stump height and assortments.
 }
 \details{
 when the \code{broken} and \code{downgrade} arguments are set to TRUE, the \code{defect_height} value is considered as the break height of the tree, and the entire tree is downgraded.
