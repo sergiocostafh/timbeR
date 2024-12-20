@@ -11,7 +11,7 @@ taper_bi(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6)
 
 \item{h}{total tree height, in meters.}
 
-\item{hih}{ratio between the height of the section (hi) and the total height (h) .}
+\item{hih}{ratio between the height of the section (hi) and the total height (h).}
 
 \item{b0, b1, b2, b3, b4, b5, b6}{model parameters.}
 }

@@ -2,7 +2,7 @@
 #'
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.
-#' @param hih ratio between the height of the section (hi) and the total height (h) .
+#' @param hih ratio between the height of the section (hi) and the total height (h).
 #' @param b0,b1,b2,b3,b4,b5,b6,b7,b8 model parameters.
 #' @param p numerical value representing the first inflection point calculated in the segmented model of Max and Burkhart (1976).
 #'

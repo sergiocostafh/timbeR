@@ -4,14 +4,14 @@
 \alias{taper_kozak.94}
 \title{Kozak (1994) Taper Function.}
 \usage{
-taper_kozak.94(dbh, h, hi, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p)
+taper_kozak.94(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p)
 }
 \arguments{
 \item{dbh}{tree diameter at breast height, in centimeters.}
 
 \item{h}{total tree height, in meters.}
 
-\item{hi}{Height of the section for which the diameter is to be estimated.}
+\item{hih}{ratio between the height of the section (hi) and the total height (h).}
 
 \item{b0, b1, b2, b3, b4, b5, b6, b7, b8, b9}{model parameters.}
 
@@ -33,7 +33,7 @@ tree_scaling <- tree_scaling \%>\%
 mutate(did = di/dbh,
        hih = hi/h)
 
-kozak.94 <-  nlsLM(di ~ taper_kozak.94(dbh, h, hi, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p),
+kozak.94 <-  nlsLM(di ~ taper_kozak.94(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p),
 data=tree_scaling,
 start=list(b0=1.5,b1=1.5,b2=1,b3=-10,b4=50,b5=-10,b6=34,b7=10,b8=-1,b9=-0.01, p = .1))
 

@@ -2,7 +2,7 @@
 #'
 #' @param dbh tree diameter at breast height, in centimeters.
 #' @param h total tree height, in meters.
-#' @param hi Height of the section for which the diameter is to be estimated.
+#' @param hih ratio between the height of the section (hi) and the total height (h).
 #' @param b0,b1,b2,b3,b4,b5,b6,b7,b8,b9 model parameters.
 #' @param p numerical value representing the first inflection point calculated in the segmented model of Max and Burkhart (1976).
 #'
@@ -22,11 +22,11 @@
 #' mutate(did = di/dbh,
 #'        hih = hi/h)
 #'
-#' kozak.94 <-  nlsLM(di ~ taper_kozak.94(dbh, h, hi, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p),
+#' kozak.94 <-  nlsLM(di ~ taper_kozak.94(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p),
 #' data=tree_scaling,
 #' start=list(b0=1.5,b1=1.5,b2=1,b3=-10,b4=50,b5=-10,b6=34,b7=10,b8=-1,b9=-0.01, p = .1))
 #'
 #' @export
-taper_kozak.94 <- function(dbh, h, hi, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p){
-  b0*(dbh**b1)*(b2**dbh)*((1-(hi/h)^0.5)/(1-p^0.5))^(b3+b4*(hi/h)^(1/4)+b5*((hi/h))^(1/3)+b6*((hi/h)^0.5)+b7*asin(1-(hi/h)^0.5)+b8*(1/((dbh/h)+1))+b9*h)
+taper_kozak.94 <- function(dbh, h, hih, b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, p){
+  b0*(dbh**b1)*(b2**dbh)*((1-(hih)^0.5)/(1-p^0.5))^(b3+b4*(hih)^(1/4)+b5*((hih))^(1/3)+b6*((hih)^0.5)+b7*asin(1-(hih)^0.5)+b8*(1/((dbh/h)+1))+b9*h)
 }
